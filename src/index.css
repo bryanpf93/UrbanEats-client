@@ -3,4 +3,5 @@ body{
   padding: 0;
   box-sizing: border-box;
   font-family: Inter, Roboto, system-ui, sans-serif;
+  text-align: center;
 }

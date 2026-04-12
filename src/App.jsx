@@ -5,6 +5,10 @@ import Login from "./pages/auth/login/Login";
 import RestaurantList from "./pages/restaurants/restaurantlist/RestaurantList";
 import IsPrivate from "./components/isprivate/IsPrivate";
 import IsAnon from "./components/isanon/IsAnon";
+import RestaurantDetails from "./pages/restaurants/restaurantdetails/RestaurantDetails";
+import About from "./pages/about/About";
+import NotFound from "./pages/notfound/NotFound";
+import Cart from "./pages/cart/Cart";
 
 
 function App() {
@@ -16,7 +20,13 @@ function App() {
 
       <Routes>
         <Route path="/" element={<h1>HOMEPAGE</h1>}/>
-        <Route path="/restaurants" element={<IsPrivate><RestaurantList /></IsPrivate>} />
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<NotFound />} />
+
+        <Route path="/restaurants" element={<RestaurantList />} />
+        <Route path="/restaurants/:restaurantId" element={<RestaurantDetails />} />
+        <Route path="/cart" element={<Cart />} />
+
         <Route path="/signup" element={<IsAnon><Signup /></IsAnon>} />
         <Route path="/login" element={<IsAnon><Login /></IsAnon>} />
       </Routes>

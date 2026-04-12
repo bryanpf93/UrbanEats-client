@@ -1,0 +1,10 @@
+
+.restaurant-card{
+  border: 1px solid black;
+  width: 25%;
+}
+
+.restaurant-card img {
+  width: 300px;
+  margin-top: 20px;
+}

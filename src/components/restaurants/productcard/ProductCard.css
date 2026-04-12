@@ -1,0 +1,8 @@
+.product-container{
+  border: 1px solid black;
+  width: 30%;
+}
+
+.product-container img{
+  width: 300px;
+}

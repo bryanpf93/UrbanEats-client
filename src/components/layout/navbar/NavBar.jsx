@@ -12,12 +12,15 @@ function NavBar() {
       <Link to="/">
         <button>Home</button>
       </Link>
+      <Link to="/restaurants">
+        <button>Restaurants</button>
+      </Link>
+      <Link to="/cart">
+        <button>Cart</button>
+      </Link>
 
       {isLoggedIn && (
         <>
-          <Link to="/restaurants">
-            <button>Restaurants</button>
-          </Link>
           <button onClick={logOutUser}>Logout</button>
           <span>{user && user.name}</span>
         </>
