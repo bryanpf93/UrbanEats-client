@@ -9,6 +9,7 @@ import RestaurantDetails from "./pages/restaurants/restaurantdetails/RestaurantD
 import About from "./pages/about/About";
 import NotFound from "./pages/notfound/NotFound";
 import Cart from "./pages/cart/Cart";
+import OrderList from "./pages/orders/orderList/OrderList";
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/restaurants" element={<RestaurantList />} />
         <Route path="/restaurants/:restaurantId" element={<RestaurantDetails />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/orders" element={<OrderList />} />
 
         <Route path="/signup" element={<IsAnon><Signup /></IsAnon>} />
         <Route path="/login" element={<IsAnon><Login /></IsAnon>} />

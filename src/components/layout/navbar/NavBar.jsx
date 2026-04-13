@@ -18,6 +18,9 @@ function NavBar() {
       <Link to="/cart">
         <button>Cart</button>
       </Link>
+      <Link to="/orders">
+        <button>Orders</button>
+      </Link>
 
       {isLoggedIn && (
         <>

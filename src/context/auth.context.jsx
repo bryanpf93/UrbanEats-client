@@ -23,16 +23,16 @@ function AuthProviderWrapper(props) {
 
       axios
         .get(
-        `${API_URL}/auth/verify`,
-        { headers: { Authorization: `Bearer ${storedToken}` } }
+          `${API_URL}/auth/verify`,
+          { headers: { Authorization: `Bearer ${storedToken}` } }
         )
         .then((response) => {
-          const user = response.data; 
+          const user = response.data;
           setIsLoggedIn(true);
           setIsLoading(false);
           setUser(user);
         })
-        .catch((error) => {      
+        .catch((error) => {
           setIsLoggedIn(false);
           setIsLoading(false);
           setUser(null);
@@ -53,8 +53,8 @@ function AuthProviderWrapper(props) {
     authenticateUser()
   }
 
-  useEffect(() => {      
-    authenticateUser()           
+  useEffect(() => {
+    authenticateUser()
   }, []);
 
 
@@ -66,7 +66,7 @@ function AuthProviderWrapper(props) {
         user,
         storeToken,
         authenticateUser,
-        logOutUser         
+        logOutUser
       }}>
       {props.children}
     </AuthContext.Provider>

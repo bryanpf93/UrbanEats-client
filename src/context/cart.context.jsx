@@ -51,7 +51,7 @@ function CartProviderWrapper({ children }) {
   const addToCart = (product) => {
 
     // IMPEDIR MEZCLAR PRODUCTOS DE DISTINTOS RESTAURANTES
-    if (cart.length && cart[0].restaurantId !== product.restaurantId) {
+    if (cart.length && cart[0].restaurantId !== product.restaurant) {
       return alert("No puedes mezclar restaurantes")  // poner modal
     }
 
@@ -73,10 +73,10 @@ function CartProviderWrapper({ children }) {
     // SI NO EXISTE CREAMOS NUEVO ITEM
     const newItem = {
       productId: product._id,
+      restaurantId: product.restaurant,
       name: product.name,
       price: product.price,
       quantity: 1,
-      restaurantId: product.restaurantId,
       image: product.image
     }
 
