@@ -1,3 +1,4 @@
+import "./Cart.css"
 import { useContext } from "react"
 import CartItem from "../../components/cart/CartItem"
 import { CartContext } from "../../context/cart.context"
@@ -55,15 +56,17 @@ function Cart() {
       {cart.length === 0 &&
         <p>Tu carrito esta vacio</p>
       }
+      <div className="carts-container">
+        {cart.map((item) => {
+          return (
+            <CartItem
+              key={item.productId}
+              item={item}
+            />
+          )
+        })}
+      </div>
 
-      {cart.map((item) => {
-        return (
-          <CartItem
-            key={item.productId}
-            item={item}
-          />
-        )
-      })}
 
       <button onClick={clearCart}>Vaciar el carrito</button>
 

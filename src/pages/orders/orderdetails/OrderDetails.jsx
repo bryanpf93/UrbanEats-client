@@ -60,7 +60,7 @@ function OrderDetails(){
       <img src={order.restaurant.image} alt={order.restaurant.name} />
       <p>#{order._id}</p>
       <span>Fecha: {new Date(order.createdAt).toLocaleDateString()}</span>
-      <span>Hora: {new Date(order.createdAt).toLocaleTimeString()}</span>
+      <span>  Hora: {new Date(order.createdAt).toLocaleTimeString()}</span>
       <p>Estado: {order.status}</p>
 
       <div className="order-product">

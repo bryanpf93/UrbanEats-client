@@ -50,8 +50,9 @@ function CartProviderWrapper({ children }) {
 
   const addToCart = (product) => {
 
+    console.log(product)
     // IMPEDIR MEZCLAR PRODUCTOS DE DISTINTOS RESTAURANTES
-    if (cart.length && cart[0].restaurantId !== product.restaurant) {
+    if (cart.length > 0 && cart[0].restaurantId !== product.restaurant) {
       return alert("No puedes mezclar restaurantes")  // poner modal
     }
 

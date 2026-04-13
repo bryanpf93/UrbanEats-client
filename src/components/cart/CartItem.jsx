@@ -12,7 +12,7 @@ function CartItem({ item }) {
       name: item.name,
       price: item.price,
       image: item.image,
-      restaurantId: item.restaurantId
+      restaurant: item.restaurantId
     })
   }
 
@@ -32,7 +32,7 @@ function CartItem({ item }) {
     <div className="item-container">
       <h3>{item.name}</h3>
       <img src={item.image} alt={item.name} />
-      <p>{item.price}€</p>
+      <p>Precio: {item.price}€</p>
 
       <div>
         <button onClick={handleDecrease}>-</button>
