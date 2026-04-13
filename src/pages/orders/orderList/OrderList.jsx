@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import "./OrderList.css"
 import axios from "axios"
+import OrderCard from "../../../components/order/OrderCard"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -30,10 +31,25 @@ function OrderList() {
     getOrders()
   }, [])
 
-    console.log(orders)
+  console.log(orders)
 
   return (
-    <h1>Mis pedidos</h1>
+    <div className="orders-container">
+
+      <h1>Mis Pedidos</h1>
+
+      {orders.length === 0 &&
+        <p>No tienes pedidos</p>
+      }
+
+      {orders.map((order) => {
+        return(
+          <OrderCard 
+            order={order}
+          />
+        )
+      })}
+    </div>
   )
 }
 

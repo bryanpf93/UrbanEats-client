@@ -1,0 +1,20 @@
+.order-container{
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-container ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-container img {
+  width: 250px;
+  margin-bottom: 15px;
+}

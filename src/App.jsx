@@ -10,6 +10,7 @@ import About from "./pages/about/About";
 import NotFound from "./pages/notfound/NotFound";
 import Cart from "./pages/cart/Cart";
 import OrderList from "./pages/orders/orderList/OrderList";
+import OrderDetails from "./pages/orders/orderdetails/OrderDetails";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/restaurants/:restaurantId" element={<RestaurantDetails />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<OrderList />} />
+        <Route path="/orders/:orderId" element={<OrderDetails />} />
 
         <Route path="/signup" element={<IsAnon><Signup /></IsAnon>} />
         <Route path="/login" element={<IsAnon><Login /></IsAnon>} />
