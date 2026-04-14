@@ -53,30 +53,39 @@ function Cart() {
     <>
       <h1>🛒 MI CARRITO</h1>
 
-      {cart.length === 0 &&
-        <p>Tu carrito esta vacio</p>
-      }
-      <div className="carts-container">
-        {cart
-        .map((item) => {
-          return (
-            <CartItem
-              key={item.productId}
-              item={item}
-            />
-          )
-        })}
-      </div>
+      {cart.length === 0 ? (
 
+        <p>Tu carrito está vacío</p>
 
-      <button onClick={clearCart}>Vaciar el carrito</button>
-      <button onClick={() => navigate(`/restaurants/${cart[0]?.restaurantId}`)}>Seguir comprando</button>
-      
+      ) : (
 
-      <h3>Total: {total}€</h3>
+        <>
+          <div className="carts-container">
+            {cart.map((item) => {
+              return (
+                <CartItem
+                  key={item.productId}
+                  item={item}
+                />
+              );
+            })}
+          </div>
 
-      <button onClick={handleCheckout}>Realizar pedido</button>
+          <button onClick={clearCart}>
+            Vaciar el carrito</button>
 
+          <button onClick={() => navigate(`/restaurants/${cart[0]?.restaurantId}`)}>
+            Seguir comprando
+          </button>
+
+          <h3>Total: {total}€</h3>
+
+          <button onClick={handleCheckout}>
+            Realizar pedido
+          </button>
+        </>
+
+      )}
     </>
 
 

@@ -1,10 +1,11 @@
 
-.restaurant-card{
-  border: 1px solid black;
-  width: 25%;
+
+.restaurant-card {
+  transition: all 0.3s ease;
+  text-align: center;
 }
 
-.restaurant-card img {
-  width: 300px;
-  margin-top: 20px;
+.restaurant-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.10);
 }
