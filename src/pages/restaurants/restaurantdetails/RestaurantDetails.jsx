@@ -3,6 +3,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import ProductCard from "../../../components/restaurants/productcard/ProductCard"
+// import RestaurantMap from "../../../components/map/RestaurantMap"
 
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -69,6 +70,10 @@ function RestaurantDetails(){
           )
         })}
         </div>
+        {/* <div className="map-container">
+          <RestaurantMap restaurant={restaurant} />
+        </div> */}
+        
     </div>
   )
 }

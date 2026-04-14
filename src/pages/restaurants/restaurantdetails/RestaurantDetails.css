@@ -5,3 +5,10 @@
   gap: 20px;
   justify-content: center;
 }
+
+.map-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0px
+}
