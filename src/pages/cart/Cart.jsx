@@ -57,7 +57,8 @@ function Cart() {
         <p>Tu carrito esta vacio</p>
       }
       <div className="carts-container">
-        {cart.map((item) => {
+        {cart
+        .map((item) => {
           return (
             <CartItem
               key={item.productId}
@@ -69,6 +70,8 @@ function Cart() {
 
 
       <button onClick={clearCart}>Vaciar el carrito</button>
+      <button onClick={() => navigate(`/restaurants/${cart[0]?.restaurantId}`)}>Seguir comprando</button>
+      
 
       <h3>Total: {total}€</h3>
 

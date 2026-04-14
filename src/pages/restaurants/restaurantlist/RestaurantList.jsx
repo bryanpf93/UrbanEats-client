@@ -12,8 +12,12 @@ function RestaurantList(){
 
   const getAllRestaurants = () => {
 
+    const storedToken = localStorage.getItem("authToken")
+
     axios
-      .get(`${API_URL}/api/restaurants`)
+      .get(
+        `${API_URL}/api/restaurants`, 
+        { headers: { Authorization: `Bearer ${storedToken}` } })
       .then((response) => {
         setRestaurants(response.data)
       })

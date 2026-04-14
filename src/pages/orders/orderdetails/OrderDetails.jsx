@@ -43,7 +43,7 @@ function OrderDetails(){
         navigate("/orders")
       })
       .catch((err) => {
-        console.log("Error deleting order")
+        console.log("Error deleting order", err)
       })
 
   }
