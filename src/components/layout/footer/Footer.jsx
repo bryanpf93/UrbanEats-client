@@ -9,7 +9,8 @@ function Footer() {
         backgroundColor: "#111",
         color: "white",
         paddingTop: "3rem",
-        paddingBottom: "1rem"
+        paddingBottom: "1rem",
+        marginTop:"30px"
       }}
     >
       <Container size="xl">

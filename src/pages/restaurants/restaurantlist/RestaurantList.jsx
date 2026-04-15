@@ -19,7 +19,9 @@ const API_URL = import.meta.env.VITE_API_URL
 
 function RestaurantList() {
 
-  const [restaurants, setRestaurants] = useState(null)
+  const [restaurants, setRestaurants] = useState([])
+  const [search, setSearch] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("Todos")
 
   const getAllRestaurants = () => {
 
@@ -41,6 +43,21 @@ function RestaurantList() {
     getAllRestaurants()
   }, [])
 
+  const filteredRestaurants = restaurants.filter((restaurant) => {
+
+    const matchesSearch =
+      restaurant.name.toLowerCase().includes(search.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === "Todos" ||
+      restaurant.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  const categories = ["Todos", "Italiana", "Hamburguesas", "Japonesa", "Española", "Mexicana", "Peruana"]
+
+
   if (restaurants === null) {
     return <h1>Loading ....</h1>
   }
@@ -49,77 +66,77 @@ function RestaurantList() {
 
 
   return (
-    <Container 
-    style={{
-      display:"flex",
-      flexDirection:"column",
-      justifyContent: "center",
-      alignItems: "center"
-    }}
-    
-    size="xl" py="xl">
+    <Container
+      size="xl"
+      py="xl"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "100%"
+      }}
+    >
 
-      <Title mb="xl">
+      <Title mb="xl" ta="center">
         Explora los mejores restaurantes
       </Title>
 
-
       <TextInput
-        style={{
-          width:"70%"
-
-        }}
+        w="70%"
+        mx="auto"
         placeholder="Busca tu restaurante favorito..."
         size="lg"
         radius="xl"
         mb="xl"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
       />
 
-
-      <Group style={{
-        display: "flex",
-        justifyContent: "center"
-      }} mb="xs">
-
-        <Button variant="light" radius="xl">Todos</Button>
-        <Button variant="light" radius="xl">Italiano</Button>
-        <Button variant="light" radius="xl">Burger</Button>
-        <Button variant="light" radius="xl">Japonsa</Button>
-        <Button variant="light" radius="xl">Española</Button>
-        <Button variant="light" radius="xl">Mexicana</Button>
-        <Button variant="light" radius="xl">Peruana</Button>
-
+      <Group justify="center" mb="xl">
+        {categories.map((category) => (
+          <Button
+            key={category}
+            radius="xl"
+            variant={selectedCategory === category ? "filled" : "light"}
+            color="orange"
+            onClick={() => setSelectedCategory(category)}
+          >
+            {category}
+          </Button>
+        ))}
       </Group>
 
+      {search === "" && selectedCategory === "Todos" && (
+        <>
+          <Title order={2} mb="xl" ta="center">
+            ⭐ Mejor valorados
+          </Title>
 
-      <Title order={2} mt="xl" mb="xl">
-        ⭐ Mejor valorados
-      </Title>
+          <RestaurantCarousel restaurants={restaurants} />
 
-      <RestaurantCarousel restaurants={restaurants} />
-
-
-      <Title order={2} mt="xl" mb="xl">
-        Todos los restaurantes
-      </Title>
-
+          <Title order={2} mt="xl" mb="xl" ta="center">
+            Todos los restaurantes
+          </Title>
+        </>
+      )}
 
       <Grid gutter="xl">
-
-        {restaurants.map((restaurant) => (
+        {filteredRestaurants.map((restaurant) => (
           <Grid.Col
             key={restaurant._id}
-            span={4}
+            span={
+              filteredRestaurants.length === 1
+                ? 4
+                : filteredRestaurants.length === 2
+                  ? 6
+                  : 4
+            }
           >
             <RestaurantCard restaurant={restaurant} />
           </Grid.Col>
         ))}
-
       </Grid>
 
-
     </Container>
-
   )
 }
 

@@ -130,7 +130,7 @@ function OrderDetails(){
       <Text fw={700} size="lg">
         Total: {order.total}€
       </Text>
-
+      <div>
       <Button
         mt="xl"
         color="red"
@@ -138,6 +138,8 @@ function OrderDetails(){
       >
         Borrar pedido
       </Button>
+      </div>
+      
 
     </Card>
 

@@ -86,6 +86,15 @@ function RestaurantDetails() {
     getProductsFromRestaurant()
   }, [restaurantId])
 
+  const categories = [
+    "Entrantes",
+    "Platos principales",
+    "Especialidades",
+    "Acompañamientos",
+    "Postres",
+    "Bebidas"
+  ];
+
   if (restaurant === null) {
     return <h1>Loading ...</h1>
   }
@@ -170,133 +179,53 @@ function RestaurantDetails() {
         </div> */}
 
       <Container size="xl" style={{
-        display:"flex",
-        flexDirection:"column",
-        alignItems:"start",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "start",
 
       }}>
 
         {isAdmin && <Button color="orange" component={Link} to={`/admin/restaurants/${restaurantId}/products/new`}>Crear producto</Button>}
 
-        <Title mt="xl" mb="xl" order={2}>Entrantes</Title>
+        {categories.map((category) => {
 
-        <Grid gutter="xl" >
-          {products.filter(product => product.category === "Entrantes").map((product) => {
-            return(
-              <Grid.Col
-              key={product._id}
-              span={4}
+          const filteredProducts = products.filter(
+            (product) => product.category === category
+          );
+
+          if (filteredProducts.length === 0) return null;
+
+          return (
+            <div
+              key={category}
+              style={{ width: "100%" }}
+            >
+              <Title
+                mt="xl"
+                mb="xl"
+                order={2}
+                ta="left"
               >
-                <ProductCard 
-                product={product}
-                refreshProducts={getProductsFromRestaurant}
-              
-              />
-              </Grid.Col>
-              
-            )
-          })}
-        </Grid>
+                {category}
+              </Title>
 
-        <Title mt="xl" mb="xl" order={2}>Platos principales</Title>
+              <Grid gutter="xl">
+                {filteredProducts.map((product) => (
+                  <Grid.Col
+                    key={product._id}
+                    span={4}
+                  >
+                    <ProductCard
+                      product={product}
+                      refreshProducts={getProductsFromRestaurant}
+                    />
+                  </Grid.Col>
+                ))}
+              </Grid>
+            </div>
+          )
+        })}
 
-        <Grid gutter="xl" >
-          {products.filter(product => product.category === "Platos principales").map((product) => {
-            return(
-              <Grid.Col
-              key={product._id}
-              span={4}
-              >
-                <ProductCard 
-                product={product}
-                refreshProducts={getProductsFromRestaurant}
-              
-              />
-              </Grid.Col>
-              
-            )
-          })}
-        </Grid>
-
-        <Title mt="xl" mb="xl" order={2}>Especialidades</Title>
-
-        <Grid gutter="xl" >
-          {products.filter(product => product.category === "Especialidades").map((product) => {
-            return(
-              <Grid.Col
-              key={product._id}
-              span={4}
-              >
-                <ProductCard 
-                product={product}
-                refreshProducts={getProductsFromRestaurant}
-              
-              />
-              </Grid.Col>
-              
-            )
-          })}
-        </Grid>
-
-        <Title mt="xl" mb="xl" order={2}>Acompañamientos</Title>
-
-        <Grid gutter="xl" >
-          {products.filter(product => product.category === "Acompañamientos").map((product) => {
-            return(
-              <Grid.Col
-              key={product._id}
-              span={4}
-              >
-                <ProductCard 
-                product={product}
-                refreshProducts={getProductsFromRestaurant}
-              
-              />
-              </Grid.Col>
-              
-            )
-          })}
-        </Grid>
-
-        <Title mt="xl" mb="xl" order={2}>Postres</Title>
-
-        <Grid gutter="xl" >
-          {products.filter(product => product.category === "Postres").map((product) => {
-            return(
-              <Grid.Col
-              key={product._id}
-              span={4}
-              >
-                <ProductCard 
-                product={product}
-                refreshProducts={getProductsFromRestaurant}
-              
-              />
-              </Grid.Col>
-              
-            )
-          })}
-        </Grid>
-
-        <Title mt="xl" mb="xl" order={2}>Bebidas</Title>
-
-        <Grid gutter="xl" mb="xl" >
-          {products.filter(product => product.category === "Bebidas").map((product) => {
-            return(
-              <Grid.Col
-              key={product._id}
-              span={4}
-              >
-                <ProductCard 
-                product={product}
-                refreshProducts={getProductsFromRestaurant}
-              
-              />
-              </Grid.Col>
-              
-            )
-          })}
-        </Grid>
       </Container>
 
     </>
