@@ -1,8 +1,9 @@
-.product-container{
-  border: 1px solid black;
-  width: 30%;
+.product-card {
+  transition: all 0.3s ease;
+  text-align: center;
 }
 
-.product-container img{
-  width: 300px;
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.10);
 }

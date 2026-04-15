@@ -1,4 +1,14 @@
 import "./RestaurantDetails.css"
+import {
+  Container,
+  Image,
+  Title,
+  Text,
+  Group,
+  Card,
+  Button,
+  Grid
+} from "@mantine/core";
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
@@ -85,24 +95,65 @@ function RestaurantDetails() {
   }
 
   return (
-    <div className="restaurant-details">
-      <h1>{restaurant.name}</h1>
-      <img src={restaurant.image} alt={restaurant.name} />
-      <p><strong>Description:</strong> {restaurant.description}</p>
-      <p><strong>Category:</strong> {restaurant.category}</p>
-      <p><strong>Address: </strong>{restaurant.address}</p>
-      <p><strong>Phone:</strong> {restaurant.phone}</p>
-      <p><strong>Rating:</strong> {restaurant.rating}</p>
+    <>
+      <Container size="xl" py="xl">
 
-      {isAdmin && (
-        <>
-          <Link to={`/admin/restaurants/${restaurantId}/edit`}><button>Edit Restaurant</button></Link>
-          <button onClick={handleDelete}>Borrar Restaurant</button>
-          <Link to={`/admin/restaurants/${restaurantId}/products/new`}><button>Crear Producto</button></Link>
-        </>
-      )}
+        <Image
+          src={restaurant.image}
+          h={400}
+          radius="xl"
+          mb="xl"
+        />
 
-      <h3>Products: </h3>
+        <Card
+          shadow="sm"
+          padding="xl"
+          radius="xl"
+          withBorder
+        >
+          <Title order={1}>
+            {restaurant.name}
+          </Title>
+
+          <Group mt="sm" justify="center">
+            <Text fw={500}>
+              ⭐ {restaurant.rating}
+            </Text>
+
+            <Text fw={500}>
+              {restaurant.category}
+            </Text>
+          </Group>
+
+          <Text mt="md">
+            📍 {restaurant.address}
+          </Text>
+
+          <Text>
+            📞 {restaurant.phone}
+          </Text>
+
+          <Text mt="lg" c="dimmed">
+            {restaurant.description}
+          </Text>
+
+          {isAdmin && (
+            <>
+              <Group mt="xl" justify="center">
+                <Button color="orange" component={Link} to={`/admin/restaurants/${restaurantId}/edit`} > Editar</Button>
+                <Button onClick={handleDelete} color="red">Borrar</Button>
+              </Group>
+              {/* <Group mt="sm" justify="center">
+                <Button component={Link} to={`/admin/restaurants/${restaurantId}/products/new`}>Crear producto</Button>
+              </Group> */}
+            </>
+          )}
+        </Card>
+
+      </Container>
+
+
+      {/* <h3>Products: </h3>
       <div className="products-container">
         {products.map((product) => {
           return (
@@ -113,12 +164,140 @@ function RestaurantDetails() {
             />
           )
         })}
-      </div>
+      </div> */}
       {/* <div className="map-container">
           <RestaurantMap restaurant={restaurant} />
         </div> */}
 
-    </div>
+      <Container size="xl" style={{
+        display:"flex",
+        flexDirection:"column",
+        alignItems:"start",
+
+      }}>
+
+        <Title mt="xl" mb="xl" order={2}>Entrantes</Title>
+
+        <Grid gutter="xl" >
+          {products.filter(product => product.category === "Entrantes").map((product) => {
+            return(
+              <Grid.Col
+              key={product._id}
+              span={4}
+              >
+                <ProductCard 
+                product={product}
+                refreshProducts={getProductsFromRestaurant}
+              
+              />
+              </Grid.Col>
+              
+            )
+          })}
+        </Grid>
+
+        <Title mt="xl" mb="xl" order={2}>Platos principales</Title>
+
+        <Grid gutter="xl" >
+          {products.filter(product => product.category === "Platos principales").map((product) => {
+            return(
+              <Grid.Col
+              key={product._id}
+              span={4}
+              >
+                <ProductCard 
+                product={product}
+                refreshProducts={getProductsFromRestaurant}
+              
+              />
+              </Grid.Col>
+              
+            )
+          })}
+        </Grid>
+
+        <Title mt="xl" mb="xl" order={2}>Especialidades</Title>
+
+        <Grid gutter="xl" >
+          {products.filter(product => product.category === "Especialidades").map((product) => {
+            return(
+              <Grid.Col
+              key={product._id}
+              span={4}
+              >
+                <ProductCard 
+                product={product}
+                refreshProducts={getProductsFromRestaurant}
+              
+              />
+              </Grid.Col>
+              
+            )
+          })}
+        </Grid>
+
+        <Title mt="xl" mb="xl" order={2}>Acompañamientos</Title>
+
+        <Grid gutter="xl" >
+          {products.filter(product => product.category === "Acompañamientos").map((product) => {
+            return(
+              <Grid.Col
+              key={product._id}
+              span={4}
+              >
+                <ProductCard 
+                product={product}
+                refreshProducts={getProductsFromRestaurant}
+              
+              />
+              </Grid.Col>
+              
+            )
+          })}
+        </Grid>
+
+        <Title mt="xl" mb="xl" order={2}>Postres</Title>
+
+        <Grid gutter="xl" >
+          {products.filter(product => product.category === "Postres").map((product) => {
+            return(
+              <Grid.Col
+              key={product._id}
+              span={4}
+              >
+                <ProductCard 
+                product={product}
+                refreshProducts={getProductsFromRestaurant}
+              
+              />
+              </Grid.Col>
+              
+            )
+          })}
+        </Grid>
+
+        <Title mt="xl" mb="xl" order={2}>Bebidas</Title>
+
+        <Grid gutter="xl" mb="xl" >
+          {products.filter(product => product.category === "Bebidas").map((product) => {
+            return(
+              <Grid.Col
+              key={product._id}
+              span={4}
+              >
+                <ProductCard 
+                product={product}
+                refreshProducts={getProductsFromRestaurant}
+              
+              />
+              </Grid.Col>
+              
+            )
+          })}
+        </Grid>
+      </Container>
+
+    </>
   )
 }
 
