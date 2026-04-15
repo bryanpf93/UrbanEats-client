@@ -4,6 +4,14 @@ import CartItem from "../../components/cart/CartItem"
 import { CartContext } from "../../context/cart.context"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import {
+  Container,
+  Title,
+  Text,
+  Card,
+  Button,
+  Group
+} from "@mantine/core";
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -49,47 +57,83 @@ function Cart() {
   console.log(cart)
 
   return (
+  <Container size="xl" py="xl">
 
-    <>
-      <h1>🛒 MI CARRITO</h1>
+    <Title mb="xl">
+      🛒 Mi carrito
+    </Title>
 
-      {cart.length === 0 ? (
+    {cart.length === 0 ? (
 
-        <p>Tu carrito está vacío</p>
+      <Text size="lg">
+        Tu carrito está vacío
+      </Text>
 
-      ) : (
+    ) : (
 
-        <>
-          <div className="carts-container">
-            {cart.map((item) => {
-              return (
-                <CartItem
-                  key={item.productId}
-                  item={item}
-                />
-              );
-            })}
-          </div>
+      <>
+        <div className="carts-container">
+          {cart.map((item) => (
+            <CartItem
+              key={item.productId}
+              item={item}
+            />
+          ))}
+        </div>
 
-          <button onClick={clearCart}>
-            Vaciar el carrito</button>
+        <Card
+          shadow="sm"
+          padding="xl"
+          radius="xl"
+          withBorder
+          mt="xl"
+        >
 
-          <button onClick={() => navigate(`/restaurants/${cart[0]?.restaurantId}`)}>
-            Seguir comprando
-          </button>
+          <Title order={3} mb="md">
+            Resumen del pedido
+          </Title>
 
-          <h3>Total: {total}€</h3>
+          <Text size="lg" fw={600}>
+            Total: {total}€
+          </Text>
 
-          <button onClick={handleCheckout}>
-            Realizar pedido
-          </button>
-        </>
+          <Group mt="lg" style={{
+            display:"flex",
+            justifyContent: "center"
+          }}>
 
-      )}
-    </>
+            <Button
+              color="red"
+              onClick={clearCart}
+            >
+              Vaciar carrito
+            </Button>
 
+            <Button
+              variant="light"
+              color="gray"
+              onClick={() =>
+                navigate(`/restaurants/${cart[0]?.restaurantId}`)
+              }
+            >
+              Seguir comprando
+            </Button>
 
-  )
+            <Button
+              color="dark"
+              onClick={handleCheckout}
+            >
+              Realizar pedido
+            </Button>
+
+          </Group>
+
+        </Card>
+      </>
+    )}
+
+  </Container>
+)
 
 }
 

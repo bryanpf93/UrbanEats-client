@@ -2,6 +2,11 @@ import { useEffect, useState } from "react"
 import "./OrderList.css"
 import axios from "axios"
 import OrderCard from "../../../components/order/OrderCard"
+import {
+  Container,
+  Title,
+  Text
+} from "@mantine/core"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -31,26 +36,33 @@ function OrderList() {
     getOrders()
   }, [])
 
-  console.log(orders)
 
   return (
-    <div className="orders-container">
+  <Container size="xl" py="xl">
 
-      <h1>Mis Pedidos</h1>
+    <Title mb="xl">
+      Mis pedidos
+    </Title>
 
-      {orders.length === 0 &&
-        <p>No tienes pedidos</p>
-      }
+    {orders.length === 0 ? (
 
-      {orders.map((order) => {
-        return(
-          <OrderCard 
-            order={order}
-          />
-        )
-      })}
-    </div>
-  )
+      <Text size="lg">
+        No tienes pedidos todavía
+      </Text>
+
+    ) : (
+
+      orders.map((order) => (
+        <OrderCard
+          key={order._id}
+          order={order}
+        />
+      ))
+
+    )}
+
+  </Container>
+)
 }
 
 export default OrderList

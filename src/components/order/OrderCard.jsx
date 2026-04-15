@@ -1,22 +1,71 @@
 import { Link } from "react-router-dom"
 import "./OrderCard.css"
+import {
+  Card,
+  Group,
+  Image,
+  Text,
+  Title,
+  Button
+} from "@mantine/core"
 
 function OrderCard({ order }) {
 
   return (
-    <div key={order._id} className="order-container">
-      <h3>{order.restaurant.name}</h3>
-      <img src={order.restaurant.image} alt={order.restaurant.name}/>
-      <span>Fecha: {new Date(order.createdAt).toLocaleDateString()}</span>
-      <span>Hora: {new Date(order.createdAt).toLocaleTimeString()}</span>
-      <p>Estado: {order.status}</p>
+    <Card
+      shadow="sm"
+      padding="lg"
+      radius="xl"
+      withBorder
+      mb="md"
+    >
+      <Group justify="space-between" align="center">
 
-      <Link to={`/orders/${order._id}`}>
-        <button>Mas detalles</button>
-      </Link>
+        <Group>
 
-      <p>Total: {order.total}€</p>
-    </div>
+          <Image
+            src={order.restaurant.image}
+            w={150}
+            h={150}
+            radius="md"
+          />
+
+        </Group>
+
+        <div>
+            <Title order={4}>
+              {order.restaurant.name}
+            </Title>
+
+            <Text c="dimmed">
+              Fecha: {new Date(order.createdAt).toLocaleDateString()}
+            </Text>
+
+            <Text c="dimmed">
+              Hora: {new Date(order.createdAt).toLocaleTimeString()}
+            </Text>
+
+            <Text>
+              Estado: {order.status}
+            </Text>
+          </div>
+
+        <div>
+          <Text fw={600} mb="sm">
+            Total: {order.total}€
+          </Text>
+
+          <Button
+            component={Link}
+            to={`/orders/${order._id}`}
+            color="dark"
+          >
+            Más detalles
+          </Button>
+        </div>
+
+      </Group>
+    </Card>
   )
 }
 

@@ -2,6 +2,16 @@ import { useNavigate, useParams } from "react-router-dom"
 import "./OrderDetails.css"
 import { useEffect, useState } from "react"
 import axios from "axios"
+import {
+  Container,
+  Card,
+  Title,
+  Text,
+  Image,
+  Button,
+  Group,
+  Divider
+} from "@mantine/core"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -52,28 +62,87 @@ function OrderDetails(){
     return <p>Cargando Pedido ...</p>
   }
 
-  return(
-    <div className="order-details">
-      
-      <h1>Pedido Detallado</h1>
-      <h2>{order.restaurant.name}</h2>
-      <img src={order.restaurant.image} alt={order.restaurant.name} />
-      <p>#{order._id}</p>
-      <span>Fecha: {new Date(order.createdAt).toLocaleDateString()}</span>
-      <span>  Hora: {new Date(order.createdAt).toLocaleTimeString()}</span>
-      <p>Estado: {order.status}</p>
+  return (
+  <Container size="md" py="xl">
 
-      <div className="order-product">
-        {order.products.map((item) => {
-          return <p key={item._id}>
-            {item.product.name} x{item.quantity}
-          </p>
-        })}
-      </div>
-      <button onClick={handleDelete}>Borrar Pedido</button>
-      <p>Total: {order.total}€</p>
-    </div>
-  )
+    <Title mb="md">
+      Pedido detallado
+    </Title>
+
+    <Card
+      shadow="sm"
+      padding="xl"
+      radius="xl"
+      withBorder
+    >
+
+      <Image
+        src={order.restaurant.image}
+        h={300}
+        radius="xl"
+        mb="lg"
+      />
+
+      <Title order={2}>
+        {order.restaurant.name}
+      </Title>
+
+      <Text c="dimmed">
+        Pedido #{order._id}
+      </Text>
+
+      <Text mt="md">
+        Fecha: {new Date(order.createdAt).toLocaleDateString()}
+      </Text>
+
+      <Text>
+        Hora: {new Date(order.createdAt).toLocaleTimeString()}
+      </Text>
+
+      <Text mb="lg">
+        Estado: {order.status}
+      </Text>
+
+      <Divider my="md" />
+
+      <Title order={3} mb="md">
+        Productos
+      </Title>
+
+      {order.products.map((item) => (
+        <Group
+          key={item._id}
+          justify="space-between"
+          mb="sm"
+        >
+          <Text>
+            {item.product.name}
+          </Text>
+
+          <Text>
+            x{item.quantity}
+          </Text>
+        </Group>
+      ))}
+
+      <Divider my="lg" />
+
+      <Text fw={700} size="lg">
+        Total: {order.total}€
+      </Text>
+
+      <Button
+        mt="xl"
+        color="red"
+        onClick={handleDelete}
+      >
+        Borrar pedido
+      </Button>
+
+    </Card>
+
+  </Container>
+)
 }
 
 export default OrderDetails
