@@ -176,7 +176,7 @@ function RestaurantDetails() {
 
       }}>
 
-        <Button color="orange" component={Link} to={`/admin/restaurants/${restaurantId}/products/new`}>Crear producto</Button>
+        {isAdmin && <Button color="orange" component={Link} to={`/admin/restaurants/${restaurantId}/products/new`}>Crear producto</Button>}
 
         <Title mt="xl" mb="xl" order={2}>Entrantes</Title>
 

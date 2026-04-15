@@ -1,7 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import {
+  Container,
+  Paper,
+  TextInput,
+  PasswordInput,
+  Button,
+  Title,
+  Text,
+  Stack
+} from "@mantine/core";
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -37,52 +46,61 @@ function Signup() {
 
 
   return (
-    <div className="Signup">
-      <h1>Sign Up</h1>
+    <Container size={420} my={40}>
+      <Title ta="center" mb="lg">
+        Crear Cuenta
+      </Title>
 
-      <form onSubmit={handleSignupSubmit}>
-        
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleEmail}
-          />
-        </label>
+      <Paper shadow="md" p="xl" radius="md" withBorder>
 
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePassword}
-          />
-        </label>
+        <form onSubmit={handleSignupSubmit}>
+          <Stack>
 
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={handleName}
-          />
-        </label>
-        <p></p>
-        <div>
-          <button type="submit">Sign Up</button>
-        </div>
-      </form>
+            <TextInput
+              label="Nombre"
+              placeholder="Tu nombre"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+            <TextInput
+              label="Email"
+              placeholder="tu@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
-      <p>Already have account?</p>
-      <Link to={"/login"}> Login</Link>
-    </div>
-  )
+            <PasswordInput
+              label="Contraseña"
+              placeholder="Tu contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            <Button type="submit" fullWidth mt="md">
+              Registrarse
+            </Button>
+
+          </Stack>
+        </form>
+
+        {errorMessage && (
+          <Text c="red" mt="md">
+            {errorMessage}
+          </Text>
+        )}
+
+        <Text ta="center" mt="md">
+          ¿Ya tienes cuenta?{" "}
+          <Link to="/login">Inicia sesión</Link>
+        </Text>
+
+      </Paper>
+    </Container>
+  );
 }
 
 export default Signup

@@ -2,6 +2,16 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/auth.context";
+import {
+  Container,
+  Paper,
+  TextInput,
+  PasswordInput,
+  Button,
+  Title,
+  Text,
+  Stack
+} from "@mantine/core";
 
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -19,18 +29,18 @@ function Login() {
   const handlePassword = (e) => setPassword(e.target.value)
 
 
-  const handleLoginSubmit = (e) => { 
+  const handleLoginSubmit = (e) => {
     e.preventDefault();
 
     const requestBody = { email, password };
- 
+
     axios
       .post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
-        console.log('JWT token', response.data.authToken )
+        console.log('JWT token', response.data.authToken)
         storeToken(response.data.authToken)
         authenticateUser()
-        navigate('/')                        
+        navigate('/')
       })
       .catch((error) => {
         const errorDescription = error.response.data.message
@@ -38,44 +48,54 @@ function Login() {
       })
   }
 
-  return (
-    <div className="LoginPage">
-      <h1>Login</h1>
+ return (
+    <Container size={420} my={40}>
+      <Title ta="center" mb="lg">
+        Iniciar sesión
+      </Title>
 
-      <form onSubmit={handleLoginSubmit}>
+      <Paper shadow="md" p="xl" radius="md" withBorder>
 
-        <label>
-          Email:
-          <input
-            type="email"
-            name="email"
-            value={email}
-            onChange={handleEmail}
-          />
-        </label>
+        <form onSubmit={handleLoginSubmit}>
+          <Stack>
 
-        <label>
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePassword}
-          />
-        </label>
+            <TextInput
+              label="Email"
+              placeholder="tu@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
-        <p></p>
-        <div>
-          <button type="submit">Login</button>
-        </div>
-      </form>
+            <PasswordInput
+              label="Contraseña"
+              placeholder="Tu contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
 
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
+            <Button type="submit" fullWidth mt="md">
+              Login
+            </Button>
 
-      <p>Don't have an account yet?</p>
-      <Link to={"/signup"}> Sign Up</Link>
-    </div>
-  )
+          </Stack>
+        </form>
+
+        {errorMessage && (
+          <Text c="red" mt="md">
+            {errorMessage}
+          </Text>
+        )}
+
+        <Text ta="center" mt="md">
+          ¿No tienes cuenta?{" "}
+          <Link to="/signup">Crear cuenta</Link>
+        </Text>
+
+      </Paper>
+    </Container>
+  );
 }
 
 export default Login
