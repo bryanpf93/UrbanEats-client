@@ -2,6 +2,16 @@ import { useState } from "react"
 import "./CreateRestaurant.css"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import {
+  Container,
+  Card,
+  Title,
+  TextInput,
+  Select,
+  Textarea,
+  Button,
+  Group
+} from "@mantine/core";
 
 function CreateRestaurant() {
 
@@ -18,7 +28,7 @@ function CreateRestaurant() {
   const [phone, setPhone] = useState("")
   const [rating, setRating] = useState(0)
 
-  
+
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -58,120 +68,166 @@ function CreateRestaurant() {
 
   return (
 
-    <div className="form-new-restaurant">
-      <h1>Crear nuevo restaurante</h1>
-      <form onSubmit={handleSubmit}>
+    <Container size="sm" py="xl">
 
-        
-        <label>
-          Nombre:
-          <input
-            type="text"
-            name="name"
+      <Title mb="xl">
+        Crear nuevo restaurante
+      </Title>
+
+      <Card
+        shadow="sm"
+        padding="xl"
+        radius="xl"
+        withBorder
+        bg="orange"
+      >
+        <form onSubmit={handleSubmit}>
+
+          <TextInput
+            label="Nombre"
             value={name}
-            onChange={e => setName(e.target.value)}
-            maxLength={15}
+            onChange={(e) => setName(e.target.value)}
+            mb="md"
+            styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
+            
           />
-        </label>
 
-        <label>
-          Categoría:
-          <select
-            name="category"
+          <Select
+            label="Categoría"
             value={category}
-            onChange={e => setCategory(e.target.value)}
-          >
-            <option value="Otro">Otro</option>
-            <option value="Italiana">Italiana</option>
-            <option value="Japonesa">Japonesa</option>
-            <option value="Mexicana">Mexicana</option>
-            <option value="Española">Española</option>
-            <option value="Hamburguesas">Hamburguesas</option>
-            <option value="Peruana">Peruana</option>
-          </select>
-        </label>
+            onChange={setCategory}
+            data={[
+              "Otro",
+              "Italiana",
+              "Japonesa",
+              "Mexicana",
+              "Española",
+              "Hamburguesas",
+              "Peruana"
+            ]}
+            mb="md" 
+             styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
+          />
 
-        <label>
-          Imagen:
-          <input
-            type="text"
-            name="image"
+          <TextInput
+            label="Imagen"
             value={image}
-            onChange={e => setImage(e.target.value)}
+            onChange={(e) => setImage(e.target.value)}
+            mb="md"
+             styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
           />
-        </label>
 
-        <label>
-          Descripción:
-          <textarea
-            name="description"
+          <Textarea
+            label="Descripción"
             value={description}
-            onChange={e => setDescription(e.target.value)}
+            onChange={(e) => setDescription(e.target.value)}
+            mb="md"
+             styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
           />
-        </label>
 
-        <label>
-          Dirección:
-          <input
-            type="text"
-            name="address"
+          <TextInput
+            label="Dirección"
             value={address}
-            onChange={e => setAddress(e.target.value)}
+            onChange={(e) => setAddress(e.target.value)}
+            mb="md"
+             styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
           />
-        </label>
 
-        <label>
-          Latitud:
-          <input
-            type="number"
-            step="any"
-            name="latitude"
+          <TextInput
+            label="Latitud"
             value={latitude}
-            onChange={e => setLatitude(e.target.value)}
+            onChange={(e) => setLatitude(e.target.value)}
+            mb="md"
+             styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
           />
-        </label>
 
-        <label>
-          Longitud:
-          <input
-            type="number"
-            step="any"
-            name="longitude"
+          <TextInput
+            label="Longitud"
             value={longitude}
-            onChange={e => setLongitude(e.target.value)}
+            onChange={(e) => setLongitude(e.target.value)}
+            mb="md"
+             styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
           />
-        </label>
 
-        <label>
-          Teléfono:
-          <input
-            type="text"
-            name="phone"
+          <TextInput
+            label="Teléfono"
             value={phone}
-            onChange={e => setPhone(e.target.value)}
+            onChange={(e) => setPhone(e.target.value)}
+            mb="md"
+             styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
           />
-        </label>
 
-        <label>
-          Rating:
-          <input
-            type="number"
-            name="rating"
+          <TextInput
+            label="Rating"
             value={rating}
-            onChange={e => setRating(e.target.value)}
-            min={0}
-            max={5}
+            onChange={(e) => setRating(e.target.value)}
+            mb="lg"
+             styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
           />
-        </label>
-        <div>
-          <button type="submit">Crear restaurante</button>
-          <button onClick={() => navigate("/restaurants")}>Cancelar</button>
-        </div>
 
+          <Group justify="space-between">
+            <Button color="dark" type="submit">
+              Crear restaurante
+            </Button>
 
-      </form>
+            <Button
+              variant="light"
+              color="gray"
+              onClick={() => navigate("/restaurants")}
+            >
+              Cancelar
+            </Button>
+          </Group>
 
-    </div>
+        </form>
+      </Card>
+
+    </Container>
   )
 }
 

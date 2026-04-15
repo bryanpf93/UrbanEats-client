@@ -2,6 +2,17 @@ import { useNavigate, useParams } from "react-router-dom"
 import "./EditProduct.css"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import {
+  Container,
+  Card,
+  Title,
+  TextInput,
+  Textarea,
+  Select,
+  Button,
+  Group,
+  NumberInput
+} from "@mantine/core";
 
 function EditProduct() {
 
@@ -67,78 +78,118 @@ function EditProduct() {
   }
 
   return (
+  <Container size="sm" py="xl">
 
-    <div className="form-edit-product">
-      <h2>Editar producto</h2>
+    <Title mb="xl">
+      Editar producto
+    </Title>
 
+    <Card
+      shadow="sm"
+      padding="xl"
+      radius="xl"
+      withBorder
+      bg="orange"
+    >
       <form onSubmit={handleSubmit}>
 
-        <label>
-          Nombre:
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
-        </label>
+        <TextInput
+          label="Nombre"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          mb="md"
+          styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
+        />
 
-        <label>
-          Precio:
-          <input
-            type="number"
-            name="price"
-            value={price}
-            onChange={e => setPrice(e.target.value)}
-            min={1}
-            max={999}
-          />
-        </label>
+        <NumberInput
+          label="Precio"
+          value={price}
+          onChange={setPrice}
+          min={1}
+          max={999}
+          mb="md"
+          styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
+        />
 
-        <label>
-          Descripción:
-          <textarea
-            name="description"
-            value={description}
-            onChange={e => setDescription(e.target.value)}
-          />
-        </label>
+        <Textarea
+          label="Descripción"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          mb="md"
+          styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
+        />
 
-        <label>
-          Imagen:
-          <input
-            type="text"
-            name="image"
-            value={image}
-            onChange={e => setImage(e.target.value)}
-          />
-        </label>
+        <TextInput
+          label="Imagen"
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
+          mb="md"
+          styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
+        />
 
-        <label>
-          Categoría:
-          <select
-            name="category"
-            value={category}
-            onChange={e => setCategory(e.target.value)}
+        <Select
+          label="Categoría"
+          value={category}
+          onChange={setCategory}
+          data={[
+            "Otro",
+            "Entrantes",
+            "Platos principales",
+            "Especialidades",
+            "Acompañamientos",
+            "Postres",
+            "Bebidas"
+          ]}
+          mb="lg"
+          styles={{
+              label: {
+                color: "white",
+                fontSize: "1.2rem"
+              }
+            }}
+        />
+
+        <Group justify="space-between">
+
+          <Button type="submit" color="dark">
+            Guardar cambios
+          </Button>
+
+          <Button
+            variant="light"
+            color="gray"
+            onClick={() => navigate(`/restaurants/${restaurantId}`)}
           >
-            <option value="Otro">Otro</option>
-            <option value="Entrantes">Entrante</option>
-            <option value="Platos principales">Platos principales</option>
-            <option value="Especialidades">Especialidades</option>
-            <option value="Acompañamientos">Acompañamientos</option>
-            <option value="Postres">Postres</option>
-            <option value="Bebidas">Bebidas</option>
-          </select>
-        </label>
+            Cancelar
+          </Button>
 
-        <div>
-          <button type="submit">Guardar cambios</button>
-          <button onClick={() => navigate(`/restaurants/${restaurantId}`)}>Cancelar</button>
-        </div>
+        </Group>
 
       </form>
-    </div>
-  )
+    </Card>
+
+  </Container>
+)
 }
 
 export default EditProduct
