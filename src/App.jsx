@@ -5,7 +5,7 @@ import NavBar from "./components/layout/navbar/NavBar";
 import Signup from "./pages/auth/signup/Signup";
 import Login from "./pages/auth/login/Login";
 
-import IsAdmin from "./components/guards/isAdmin";
+import IsAdmin from "./components/guards/IsAdmin";
 import IsPrivate from "./components/guards/IsPrivate";
 import IsAnon from "./components/guards/IsAnon";
 
