@@ -16,10 +16,10 @@ function Hero() {
       style={{
         background:
           "linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #ffffff 100%)",
-        padding: "6rem 0",
+        padding: "4rem 0",
         display: "flex",
         alignItems: "center",
-        justifyContent:"center"
+        justifyContent: "center"
       }}
     >
       <Container size="xl">
@@ -27,10 +27,10 @@ function Hero() {
         <Grid align="center">
 
           {/* LEFT */}
-          <Grid.Col span={6}>
+          <Grid.Col span={{ base: 12, md: 6 }} style={{ textAlign: "center" }}>
 
             <Title
-              size="4rem"
+              size="clamp(2rem, 3.8vw, 4rem)"
               fw={600}
               lh={1}
             >
@@ -66,13 +66,17 @@ function Hero() {
 
 
           {/* RIGHT */}
-          <Grid.Col span={6}>
-
+          <Grid.Col
+            span={{ base: 12, md: 6 }}
+            mt={{ base: "xl", md: 0 }}
+          >
             <Image
               src={heroFood}
               radius="md"
+              w="100%"
+              maw={{ base: 450, md: 650 }}
+              mx="auto"
             />
-
           </Grid.Col>
 
         </Grid>

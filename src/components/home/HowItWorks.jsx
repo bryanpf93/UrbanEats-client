@@ -12,7 +12,7 @@ function HowItWorks() {
   return (
     <section
       style={{
-        padding: "3rem 0 5rem 0",
+        padding: "3rem 0",
         backgroundColor: "white"
       }}
     >
@@ -29,20 +29,25 @@ function HowItWorks() {
         <Text
           ta="center"
           c="dimmed"
-          mb="4rem"
+          mb="2rem"
         >
           Pedir tu comida favorita nunca fue tan fácil.
         </Text>
 
 
-        <Grid>
+        <Grid justify="center">
 
-          <Grid.Col span={4}>
+          <Grid.Col
+            span={{ base: 12, sm: 6, lg: 4 }}
+            style={{ display: "flex" }}
+          >
             <Card
               shadow="md"
               padding="xl"
               radius="lg"
               withBorder
+              h="100%"
+              style={{ flex: 1 }}
             >
               <IconSearch
                 size={40}
@@ -60,12 +65,17 @@ function HowItWorks() {
           </Grid.Col>
 
 
-          <Grid.Col span={4}>
+          <Grid.Col
+            span={{ base: 12, sm: 6, lg: 4 }}
+            style={{ display: "flex" }}
+          >
             <Card
               shadow="md"
               padding="xl"
               radius="lg"
               withBorder
+              h="100%"
+              style={{ flex: 1 }}
             >
               <IconShoppingCart
                 size={40}
@@ -83,12 +93,17 @@ function HowItWorks() {
           </Grid.Col>
 
 
-          <Grid.Col span={4}>
+          <Grid.Col
+            span={{ base: 12, sm: 6, lg: 4 }}
+            style={{ display: "flex" }}
+          >
             <Card
               shadow="md"
               padding="xl"
               radius="lg"
               withBorder
+              h="100%"
+              style={{ flex: 1 }}
             >
               <IconTruckDelivery
                 size={40}

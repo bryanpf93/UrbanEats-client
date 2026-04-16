@@ -1,6 +1,21 @@
-import { Container, Group, Text, Anchor, Divider, Image } from "@mantine/core";
+import {
+  Container,
+  Flex,
+  Group,
+  Text,
+  Anchor,
+  Divider,
+  Image,
+  Stack
+} from "@mantine/core";
+
+import {
+  IconBrandLinkedin,
+  IconBrandGithub
+} from "@tabler/icons-react";
+
 import { Link } from "react-router-dom";
-import logo from "../../../assets/images/logo.png"
+import logo from "../../../assets/images/logo.png";
 
 function Footer() {
   return (
@@ -10,48 +25,84 @@ function Footer() {
         color: "white",
         paddingTop: "3rem",
         paddingBottom: "1rem",
-        marginTop:"30px"
+        marginTop: "30px"
       }}
     >
       <Container size="xl">
 
-        <Group justify="space-evenly" align="flex-start">
+        <Flex
+          direction={{ base: "column", sm: "row" }}
+          justify="space-evenly"
+          align={{ base: "center", sm: "flex-start" }}
+          gap="xl"
+        >
 
-          {/* BRAND */}
-          <div>
+          {/* LOGO */}
+          <Stack align="center" gap={4}>
             <Link to="/">
-                        <Image
-                          src={logo}
-                          alt="UrbanEats"
-                          h={100}
-                          fit="contain"
-                        />
-                      </Link>
-            <Text size="sm" c="dimmed" mt="sm">
+              <Image
+                src={logo}
+                alt="UrbanEats"
+                h={80}
+                fit="contain"
+              />
+            </Link>
+
+            <Text size="sm" c="dimmed" ta="center">
               Tu comida favorita, entregada rápido.
             </Text>
-          </div>
+          </Stack>
 
-          {/* LINKS */}
-          <div>
-            <Text fw={600} mb="sm">Navegación</Text>
 
-            <Anchor component={Link} to="/" c="gray">Inicio</Anchor><br />
-            <Anchor component={Link} to="/restaurants" c="gray">Restaurantes</Anchor><br />
-            <Anchor component={Link} to="/about" c="gray">Conócenos</Anchor>
-          </div>
+          {/* BLOQUE LINKS + CONTACTO */}
+          <Group gap="4rem">
 
-          {/* CONTACT */}
-          <div>
-            <Text fw={600} mb="sm">Contacto</Text>
+            <Stack gap={4}>
+              <Text fw={600}>Navegación</Text>
 
-            <Text size="sm" c="dimmed">bryanpf93@gmail.com</Text>
-            <Text size="sm" c="dimmed">+34 607 209 707</Text>
-          </div>
+              <Anchor component={Link} to="/" c="gray">
+                Inicio
+              </Anchor>
 
-        </Group>
+              <Anchor component={Link} to="/restaurants" c="gray">
+                Restaurantes
+              </Anchor>
 
-        <Divider my="sm" color="gray" />
+              <Anchor component={Link} to="/about" c="gray">
+                Conócenos
+              </Anchor>
+            </Stack>
+
+
+            <Stack gap={4}>
+              <Text fw={600}>Contacto</Text>
+
+              <Text size="sm" c="dimmed">
+                bryanpf93@gmail.com
+              </Text>
+
+              <Anchor
+                href="https://www.linkedin.com/in/bryanpf93/"
+                target="_blank"
+                c="dimmed"
+              >
+                <IconBrandLinkedin size="1rem" /> LinkedIn
+              </Anchor>
+
+              <Anchor
+                href="https://github.com/bryanpf93"
+                target="_blank"
+                c="dimmed"
+              >
+                <IconBrandGithub size="1rem" /> GitHub
+              </Anchor>
+            </Stack>
+
+          </Group>
+
+        </Flex>
+
+        <Divider mb="md" mt="xl" color="gray" />
 
         <Text ta="center" size="sm" c="dimmed">
           © 2026 UrbanEats. Todos los derechos reservados.

@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import logo from "../../../assets/images/logo-header.png";
 import NavBar from "../navbar/NavBar";
 import UserMenu from "../user/UserMenu";
+import ThemeToggle from "../../theme/ThemeToggle";
+import BurgerMenu from "../burgermenu/BurgerMenu";
 
 function Header() {
   return (
     <header
       style={{
-        backgroundColor: "white",
+        backgroundColor: "#fff7ed",
         borderBottom: "1px solid #eee",
         boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
         position: "sticky",
@@ -24,7 +26,6 @@ function Header() {
 
         <Group justify="space-between" align="center">
 
-          {/* LOGO */}
           <Link to="/">
             <Image
               src={logo}
@@ -34,11 +35,17 @@ function Header() {
             />
           </Link>
 
-          <NavBar />
+          <>
+            <NavBar />
+            <BurgerMenu />
+          </>
 
-          <UserMenu />
+          <Group gap="md">
 
+            <ThemeToggle />
+            <UserMenu />
 
+          </Group>
 
         </Group>
 

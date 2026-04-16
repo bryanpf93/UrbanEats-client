@@ -6,7 +6,9 @@ import {
   Grid,
   Button,
   TextInput,
-  Group
+  Group,
+  SimpleGrid,
+  Box
 } from "@mantine/core";
 
 import axios from "axios"
@@ -128,16 +130,21 @@ function RestaurantList() {
         </>
       )}
 
-      <Grid gutter="xl">
+      <Box
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 410px))",
+          justifyContent: "center",
+          gap: "24px",
+        }}
+      >
         {filteredRestaurants.map((restaurant) => (
-          <Grid.Col
+          <RestaurantCard
             key={restaurant._id}
-            span={4}
-          >
-            <RestaurantCard restaurant={restaurant} />
-          </Grid.Col>
+            restaurant={restaurant}
+          />
         ))}
-      </Grid>
+      </Box>
 
     </Container>
   )

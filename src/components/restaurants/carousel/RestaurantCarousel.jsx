@@ -2,7 +2,6 @@ import { Carousel } from "@mantine/carousel";
 import RestaurantCard from "../restaurantcard/RestaurantCard";
 
 function RestaurantCarousel({ restaurants }) {
-
   const topRatedRestaurants = [...restaurants]
     .sort((a, b) => b.rating - a.rating)
     .slice(0, 10);
@@ -10,8 +9,16 @@ function RestaurantCarousel({ restaurants }) {
   return (
     <Carousel
       w="100%"
-      slideSize="33.333333%"
-      slideGap="md"
+      slideSize={{
+        base: "410px",
+        sm: "47%",
+        lg: "33.333%"
+      }}
+      slideGap={{
+        base: "md",
+        sm: "lg",
+        lg: "lg"
+      }}
       align="start"
       withControls
       loop

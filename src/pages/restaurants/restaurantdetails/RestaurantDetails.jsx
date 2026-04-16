@@ -7,7 +7,7 @@ import {
   Group,
   Card,
   Button,
-  Grid
+  Box
 } from "@mantine/core";
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
@@ -215,24 +215,27 @@ function RestaurantDetails() {
                 mt="xl"
                 mb="xl"
                 order={2}
-                ta="left"
+                ta="center"
               >
                 {category}
               </Title>
 
-              <Grid gutter="xl">
+              <Box
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(320px, 410px))",
+                  justifyContent: "center",
+                  gap: "24px",
+                }}
+              >
                 {filteredProducts.map((product) => (
-                  <Grid.Col
+                  <ProductCard
                     key={product._id}
-                    span={4}
-                  >
-                    <ProductCard
-                      product={product}
-                      refreshProducts={getProductsFromRestaurant}
-                    />
-                  </Grid.Col>
+                    product={product}
+                    refreshProducts={getProductsFromRestaurant}
+                  />
                 ))}
-              </Grid>
+              </Box>
             </div>
           )
         })}

@@ -20,10 +20,9 @@ function RestaurantCard({ restaurant }) {
       padding="lg"
       radius="xl"
       withBorder
+      w="100%"
       className="restaurant-card"
-      style={{
-        textDecoration: "none"
-      }}
+      style={{ textDecoration: "none" }}
     >
       <Card.Section>
         <Image
@@ -52,7 +51,7 @@ function RestaurantCard({ restaurant }) {
       </Text>
 
       <Group gap={4} style={{
-        display:"flex",
+        display: "flex",
         justifyContent: "center"
 
       }}>
