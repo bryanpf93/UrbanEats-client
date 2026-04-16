@@ -8,13 +8,17 @@ import {
   TextInput,
   Group,
   SimpleGrid,
-  Box
+  Box,
+  Skeleton
 } from "@mantine/core";
 
 import axios from "axios"
 import { useEffect, useState } from "react"
 import RestaurantCard from "../../../components/restaurants/restaurantcard/RestaurantCard"
 import RestaurantCarousel from "../../../components/restaurants/carousel/RestaurantCarousel";
+import RestaurantCardSkeleton from "../../../components/loader/SkeletonLoader";
+import RestaurantCarouselSkeleton from "../../../components/loader/SkeletonLoaderCarousel";
+import ProductCardSkeleton from "../../../components/loader/SkeletonLoaderProductCard";
 
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -24,6 +28,7 @@ function RestaurantList() {
   const [restaurants, setRestaurants] = useState([])
   const [search, setSearch] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("Todos")
+  const [loading, setLoading] = useState(true)
 
   const getAllRestaurants = () => {
 
@@ -32,11 +37,11 @@ function RestaurantList() {
     axios
       .get(
         `${API_URL}/api/restaurants`,
-        { headers: { Authorization: `Bearer ${storedToken}` } })
+        { headers: { Authorization: `Bearer ${storedToken}` } }
+      )
       .then((response) => {
 
         const fixedRestaurants = response.data.slice(0, 18);
-
         const newRestaurants = response.data.slice(18).reverse();
 
         setRestaurants([
@@ -47,6 +52,11 @@ function RestaurantList() {
       })
       .catch((err) => {
         console.log("Error getting projects from DB", err)
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false)
+        }, 500)
       })
   }
 
@@ -87,46 +97,77 @@ function RestaurantList() {
       }}
     >
 
-      <Title mb="xl" ta="center">
-        Explora los mejores restaurantes
-      </Title>
+      {loading ? (
+        <Skeleton height={36} width={320} mx="auto" mb="xl" />
+      ) : (
+        <Title mb="xl" ta="center">
+          Explora los mejores restaurantes
+        </Title>
+      )}
 
-      <TextInput
-        w="70%"
-        mx="auto"
-        placeholder="Busca tu restaurante favorito..."
-        size="lg"
-        radius="xl"
-        mb="xl"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      {loading ? (
+        <Skeleton height={52} width="70%" mx="auto" mb="xl" radius="xl" />
+      ) : (
+        <TextInput
+          w="70%"
+          mx="auto"
+          placeholder="Busca tu restaurante favorito..."
+          size="lg"
+          radius="xl"
+          mb="xl"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      )}
 
-      <Group justify="center" mb="xl">
-        {categories.map((category) => (
-          <Button
-            key={category}
-            radius="xl"
-            variant={selectedCategory === category ? "filled" : "light"}
-            color="orange"
-            onClick={() => setSelectedCategory(category)}
-          >
-            {category}
-          </Button>
-        ))}
-      </Group>
+      {loading ? (
+        <Group justify="center" mb="xl">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={i} height={36} width={100} radius="xl" />
+          ))}
+        </Group>
+      ) : (
+        <Group justify="center" mb="xl">
+          {categories.map((category) => (
+            <Button
+              key={category}
+              radius="xl"
+              variant={selectedCategory === category ? "filled" : "light"}
+              color="orange"
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category}
+            </Button>
+          ))}
+        </Group>
+      )}
 
       {search === "" && selectedCategory === "Todos" && (
         <>
-          <Title order={2} mb="xl" ta="center">
-            ⭐ Mejor valorados
-          </Title>
+          {loading ? (
+            <Skeleton height={36} width={320} mx="auto" mb="xl" />
+          ) : (
+            <Title order={2} mb="xl" ta="center">
+              ⭐ Mejor valorados
+            </Title>
+          )}
 
-          <RestaurantCarousel restaurants={restaurants} />
 
-          <Title order={2} mt="xl" mb="xl" ta="center">
-            Todos los restaurantes
-          </Title>
+          {loading ? (
+            <RestaurantCarouselSkeleton />
+          ) : (
+            <RestaurantCarousel restaurants={restaurants} />
+          )}
+
+
+          {loading ? (
+            <Skeleton mt="xl" height={36} width={320} mx="auto" mb="xl" />
+          ) : (
+            <Title order={2} mt="xl" mb="xl" ta="center">
+              Todos los restaurantes
+            </Title>
+          )}
+
         </>
       )}
 
@@ -138,12 +179,17 @@ function RestaurantList() {
           gap: "24px",
         }}
       >
-        {filteredRestaurants.map((restaurant) => (
-          <RestaurantCard
-            key={restaurant._id}
-            restaurant={restaurant}
-          />
-        ))}
+        {loading
+          ? Array.from({ length: 6 }).map((_, index) => (
+            <ProductCardSkeleton key={index} />
+          ))
+          : filteredRestaurants.map((restaurant) => (
+            <RestaurantCard
+              key={restaurant._id}
+              restaurant={restaurant}
+            />
+          ))
+        }
       </Box>
 
     </Container>

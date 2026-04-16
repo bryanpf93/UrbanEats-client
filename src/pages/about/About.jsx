@@ -20,41 +20,68 @@ function About() {
         cómoda y moderna para descubrir y pedir tus platos favoritos.
       </Text>
 
-      <Grid gutter="xl">
+      <Grid justify="center">
 
-        <Grid.Col span={4}>
-          <Card shadow="sm" padding="lg" radius="xl" withBorder>
-            <Title order={3} mb="sm">
+        <Grid.Col
+          span={{ base: 12, sm: 6, lg: 4 }}
+          style={{ display: "flex" }}
+        >
+          <Card
+            shadow="md"
+            padding="xl"
+            radius="lg"
+            withBorder
+            h="100%"
+            style={{ flex: 1 }}
+          >
+            <Title order={4} mb="md">
               🍽️ Variedad
             </Title>
 
-            <Text>
+            <Text c="dimmed" mt="sm">
               Explora restaurantes de distintas categorías y descubre
               nuevos sabores cerca de ti.
             </Text>
           </Card>
         </Grid.Col>
 
-        <Grid.Col span={4}>
-          <Card shadow="sm" padding="lg" radius="xl" withBorder>
-            <Title order={3} mb="sm">
+        <Grid.Col
+          span={{ base: 12, sm: 6, lg: 4 }}
+          style={{ display: "flex" }}
+        >
+          <Card
+            shadow="md"
+            padding="xl"
+            radius="lg"
+            withBorder
+            h="100%"
+            style={{ flex: 1 }}
+          >
+            <Title order={4} mb="md">
               ⚡ Rapidez
             </Title>
 
-            <Text>
+            <Text c="dimmed" mt="sm">
               Haz tus pedidos en pocos clics y disfruta de una
               experiencia ágil e intuitiva.
             </Text>
           </Card>
         </Grid.Col>
 
-        <Grid.Col span={4}>
-          <Card shadow="sm" padding="lg" radius="xl" withBorder>
-            <Title order={3} mb="sm">
+        <Grid.Col span={{ base: 12, sm: 6, lg: 4 }}>
+          <Card
+            shadow="md"
+            padding="xl"
+            radius="lg"
+            withBorder
+            h="100%"
+            style={{ flex: 1 }}
+          >
+            <Title order={4} mb="md">
               ❤️ Calidad
             </Title>
 
-            <Text>
+            <Text c="dimmed" mt="sm">
               Trabajamos con restaurantes mejor valorados para
               garantizar la mejor experiencia gastronómica.
             </Text>

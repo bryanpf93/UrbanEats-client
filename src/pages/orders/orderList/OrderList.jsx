@@ -5,14 +5,17 @@ import OrderCard from "../../../components/order/OrderCard"
 import {
   Container,
   Title,
-  Text
+  Text,
+  Skeleton
 } from "@mantine/core"
+import OrderCardSkeleton from "../../../components/loader/SkeletonOrderCard"
 
 const API_URL = import.meta.env.VITE_API_URL
 
 function OrderList() {
 
   const [orders, setOrders] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const getOrders = () => {
 
@@ -29,40 +32,54 @@ function OrderList() {
       .catch((err) => {
         console.log("Error getting orders", err)
       })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false)
+        }, 500)
+      })
 
   }
-
   useEffect(() => {
     getOrders()
   }, [])
 
 
   return (
-  <Container size="xl" py="xl">
+    <Container size="xl" py="xl">
 
-    <Title mb="xl">
-      Mis pedidos
-    </Title>
+      {loading ? (
+        <Skeleton height={38} width={180} mb="xl" />
+      ) : (
+        <Title mb="xl">
+          Mis pedidos
+        </Title>
+      )}
 
-    {orders.length === 0 ? (
+      {loading ? (
 
-      <Text size="lg">
-        No tienes pedidos todavía
-      </Text>
+        Array.from({ length: 5 }).map((_, index) => (
+          <OrderCardSkeleton key={index} />
+        ))
 
-    ) : (
+      ) : orders.length === 0 ? (
 
-      orders.map((order) => (
-        <OrderCard
-          key={order._id}
-          order={order}
-        />
-      ))
+        <Text size="lg">
+          No tienes pedidos todavía
+        </Text>
 
-    )}
+      ) : (
 
-  </Container>
-)
+        orders.map((order) => (
+          <OrderCard
+            key={order._id}
+            order={order}
+          />
+        ))
+
+      )}
+
+    </Container>
+  )
 }
 
 export default OrderList

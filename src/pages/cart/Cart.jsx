@@ -1,5 +1,5 @@
 import "./Cart.css"
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import CartItem from "../../components/cart/CartItem"
 import { CartContext } from "../../context/cart.context"
 import axios from "axios"
@@ -11,9 +11,11 @@ import {
   Card,
   Button,
   Group,
-  Grid
+  Grid,
+  Skeleton
 } from "@mantine/core";
 import ConfirmModal from "../../components/modals/ConfirmModal"
+import CartItemSkeleton from "../../components/loader/SkeletonCartItem"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -21,6 +23,8 @@ function Cart() {
 
   const { cart, total, clearCart } = useContext(CartContext)
   const navigate = useNavigate()
+
+  const [loading, setLoading] = useState(true)
 
   const handleCheckout = () => {
 
@@ -68,16 +72,54 @@ function Cart() {
     });
   };
 
-  console.log(cart)
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000)
+  }, [])
 
   return (
     <Container size="xl" py="xl">
 
-      <Title mb="xl">
-        🛒 Mi carrito
-      </Title>
+      {loading ? (
 
-      {cart.length === 0 ? (
+        <>
+          <Grid gutter="xl">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <Grid.Col
+                key={index}
+                span={{
+                  base: 12,
+                  sm: 6,
+                  md: 6,
+                  lg: 6
+                }}
+              >
+                <CartItemSkeleton />
+              </Grid.Col>
+            ))}
+          </Grid>
+
+          <Card
+            shadow="sm"
+            padding="xl"
+            radius="xl"
+            withBorder
+            mt="xl"
+          >
+            <Skeleton height={28} width={200} mb="md" />
+
+            <Skeleton height={24} width={120} mb="lg" />
+
+            <Group mt="lg" justify="center">
+              <Skeleton height={36} width={120} />
+              <Skeleton height={36} width={140} />
+              <Skeleton height={36} width={140} />
+            </Group>
+          </Card>
+        </>
+
+      ) : cart.length === 0 ? (
 
         <Text size="lg">
           Tu carrito está vacío
@@ -111,7 +153,6 @@ function Cart() {
             withBorder
             mt="xl"
           >
-
             <Title order={3} mb="md">
               Resumen del pedido
             </Title>
@@ -120,15 +161,9 @@ function Cart() {
               Total: {total}€
             </Text>
 
-            <Group mt="lg" style={{
-              display: "flex",
-              justifyContent: "center"
-            }}>
+            <Group mt="lg" justify="center">
 
-              <Button
-                color="red"
-                onClick={confirmClearCart}
-              >
+              <Button color="red" onClick={confirmClearCart}>
                 Vaciar carrito
               </Button>
 
@@ -142,17 +177,14 @@ function Cart() {
                 Seguir comprando
               </Button>
 
-              <Button
-                color="dark"
-                onClick={handleCheckout}
-              >
+              <Button color="dark" onClick={handleCheckout}>
                 Realizar pedido
               </Button>
 
             </Group>
-
           </Card>
         </>
+
       )}
 
     </Container>

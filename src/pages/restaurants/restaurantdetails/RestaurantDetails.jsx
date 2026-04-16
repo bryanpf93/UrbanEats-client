@@ -7,7 +7,8 @@ import {
   Group,
   Card,
   Button,
-  Box
+  Box,
+  Skeleton
 } from "@mantine/core";
 import axios from "axios"
 import { useContext, useEffect, useState } from "react"
@@ -16,14 +17,16 @@ import ProductCard from "../../../components/restaurants/productcard/ProductCard
 import { AuthContext } from "../../../context/auth.context"
 import RestaurantMap from "../../../components/map/RestaurantMap";
 import ConfirmModal from "../../../components/modals/ConfirmModal";
+import SkeletonLoaderProductCard from "../../../components/loader/SkeletonLoaderProductCard";
 
 
 const API_URL = import.meta.env.VITE_API_URL
 
 function RestaurantDetails() {
 
-  const [restaurant, setRestaurant] = useState(null)
-  const [products, setProducts] = useState(null)
+  const [restaurant, setRestaurant] = useState({})
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
 
   const { restaurantId } = useParams()
   const navigate = useNavigate()
@@ -34,34 +37,24 @@ function RestaurantDetails() {
   const storedToken = localStorage.getItem("authToken")
 
   const getRestaurant = () => {
-
-    axios
-      .get(
-        `${API_URL}/api/restaurants/${restaurantId}`,
-        { headers: { Authorization: `Bearer ${storedToken}` } }
-      )
-      .then((response) => {
-        setRestaurant(response.data)
-      })
-      .catch((err) => {
-        console.log("Error getting restaurant", err)
-      })
-  }
+    return axios.get(
+      `${API_URL}/api/restaurants/${restaurantId}`,
+      { headers: { Authorization: `Bearer ${storedToken}` } }
+    );
+  };
 
   const getProductsFromRestaurant = () => {
-
-    axios
-      .get(
-        `${API_URL}/api/restaurants/${restaurantId}/products`,
-        { headers: { Authorization: `Bearer ${storedToken}` } }
-      )
+    return axios.get(
+      `${API_URL}/api/restaurants/${restaurantId}/products`,
+      { headers: { Authorization: `Bearer ${storedToken}` } }
+    )
       .then((response) => {
-        setProducts(response.data)
+        setProducts(response.data);
       })
       .catch((err) => {
-        console.log("Error getting products from restaurant", err)
-      })
-  }
+        console.log("Error getting products", err);
+      });
+  };
 
   const handleDelete = () => {
 
@@ -94,11 +87,23 @@ function RestaurantDetails() {
     });
   };
 
-
   useEffect(() => {
-    getRestaurant()
-    getProductsFromRestaurant()
-  }, [restaurantId])
+    Promise.all([
+      getRestaurant(),
+      getProductsFromRestaurant()
+    ])
+      .then(([restaurantRes]) => {
+        setRestaurant(restaurantRes.data);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
+      });
+
+  }, [restaurantId]);
+
+
 
   const categories = [
     "Entrantes",
@@ -109,83 +114,100 @@ function RestaurantDetails() {
     "Bebidas"
   ];
 
-  if (restaurant === null) {
-    return <h1>Loading ...</h1>
-  }
-
-  if (products === null) {
-    return <h1>Loading ...</h1>
-  }
-
   return (
     <>
       <Container size="xl" py="xl">
 
-        <Image
-          src={restaurant.image}
-          h={400}
-          radius="xl"
-          mb="xl"
-        />
+        {loading ? (
+          <Skeleton height={400} radius="xl" mb="xl" />
+        ) : (
+          <Image
+            src={restaurant.image}
+            h={400}
+            radius="xl"
+            mb="xl"
+          />
+        )}
 
-        <Card
-          shadow="sm"
-          padding="xl"
-          radius="xl"
-          withBorder
-        >
-          <Title order={1}>
-            {restaurant.name}
-          </Title>
+        {loading ? (
+          <Card shadow="sm" padding="xl" radius="xl" withBorder>
+            <Skeleton height={36} width="40%" />
 
-          <Group mt="sm" justify="center">
-            <Text fw={500}>
-              ⭐ {restaurant.rating}
+            <Group mt="sm" justify="center">
+              <Skeleton height={20} width={80} />
+              <Skeleton height={20} width={100} />
+            </Group>
+
+            <Skeleton mt="md" height={20} width="60%" />
+            <Skeleton mt="sm" height={20} width="40%" />
+
+            <Skeleton mt="lg" height={18} width="100%" />
+            <Skeleton mt="sm" height={18} width="80%" />
+          </Card>
+        ) : (
+          <Card
+            shadow="sm"
+            padding="xl"
+            radius="xl"
+            withBorder
+          >
+            <Title order={1}>
+              {restaurant.name}
+            </Title>
+
+            <Group mt="sm" justify="center">
+              <Text fw={500}>
+                ⭐ {restaurant.rating}
+              </Text>
+
+              <Text fw={500}>
+                {restaurant.category}
+              </Text>
+            </Group>
+
+            <Text mt="md">
+              📍 {restaurant.address}
             </Text>
 
-            <Text fw={500}>
-              {restaurant.category}
+            <Text>
+              📞 {restaurant.phone}
             </Text>
-          </Group>
 
-          <Text mt="md">
-            📍 {restaurant.address}
-          </Text>
+            <Text mt="lg" c="dimmed">
+              {restaurant.description}
+            </Text>
 
-          <Text>
-            📞 {restaurant.phone}
-          </Text>
-
-          <Text mt="lg" c="dimmed">
-            {restaurant.description}
-          </Text>
-
-          {isAdmin && (
-            <>
-              <Group mt="xl" justify="center">
-                <Button color="orange" component={Link} to={`/admin/restaurants/${restaurantId}/edit`} > Editar</Button>
-                <Button color="red" onClick={confirmDeleteRestaurant}>Borrar</Button>
-              </Group>
-            </>
-          )}
-        </Card>
+            {isAdmin && (
+              <>
+                <Group mt="xl" justify="center">
+                  <Button color="orange" component={Link} to={`/admin/restaurants/${restaurantId}/edit`} > Editar</Button>
+                  <Button color="red" onClick={confirmDeleteRestaurant}>Borrar</Button>
+                </Group>
+              </>
+            )}
+          </Card>
+        )}
 
       </Container>
 
       <Container size="xl" mb="lg">
 
-        <Title order={2} mb="lg">
-          Ubicación
-        </Title>
+        {loading ? (
+          <>
+            <Skeleton height={32} width={140} mb="lg" />
+            <Skeleton height={300} radius="xl" />
+          </>
+        ) : (
+          <>
+            <Title order={2} mb="lg">
+              Ubicación
+            </Title>
 
-        <Card
-          shadow="sm"
-          radius="xl"
-          withBorder
-          padding="md"
-        >
-          <RestaurantMap restaurant={restaurant} />
-        </Card>
+            <Card shadow="sm" radius="xl" withBorder padding="md">
+              <RestaurantMap restaurant={restaurant} />
+            </Card>
+          </>
+        )}
 
       </Container>
 
@@ -196,8 +218,24 @@ function RestaurantDetails() {
 
       }}>
 
-        {isAdmin && <Button color="orange" component={Link} to={`/admin/restaurants/${restaurantId}/products/new`}>Crear producto</Button>}
-
+        {loading ? (
+          <Skeleton
+            height={36}
+            width={140}
+            radius="md"
+            mb="md"
+          />
+        ) : (
+          isAdmin && (
+            <Button
+              color="orange"
+              component={Link}
+              to={`/admin/restaurants/${restaurantId}/products/new`}
+            >
+              Crear producto
+            </Button>
+          )
+        )}
         {categories.map((category) => {
 
           const filteredProducts = products.filter(
@@ -211,14 +249,20 @@ function RestaurantDetails() {
               key={category}
               style={{ width: "100%" }}
             >
-              <Title
-                mt="xl"
-                mb="xl"
-                order={2}
-                ta="center"
-              >
-                {category}
-              </Title>
+
+              {loading ? (
+                <Skeleton height={36} width={320} mx="auto" mb="xl" />
+              ) : (
+                <Title
+                  mt="xl"
+                  mb="xl"
+                  order={2}
+                  ta="center"
+                >
+                  {category}
+                </Title>
+              )}
+
 
               <Box
                 style={{
@@ -228,13 +272,18 @@ function RestaurantDetails() {
                   gap: "24px",
                 }}
               >
-                {filteredProducts.map((product) => (
-                  <ProductCard
-                    key={product._id}
-                    product={product}
-                    refreshProducts={getProductsFromRestaurant}
-                  />
-                ))}
+                {loading
+                  ? Array.from({ length: 6 }).map((_, index) => (
+                    <SkeletonLoaderProductCard key={index} />
+                  ))
+                  : filteredProducts.map((product) => (
+                    <ProductCard
+                      key={product._id}
+                      product={product}
+                      refreshProducts={getProductsFromRestaurant}
+                    />
+                  ))
+                }
               </Box>
             </div>
           )
