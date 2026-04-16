@@ -18,6 +18,7 @@ function BurgerMenu() {
         opened={opened}
         onClick={toggle}
         hiddenFrom="sm"
+        color="black"
       />
 
       <Drawer
