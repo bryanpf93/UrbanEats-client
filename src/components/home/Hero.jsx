@@ -9,13 +9,20 @@ import {
 
 import heroFood from "../../assets/images/hero-food.png";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/theme.context";
 
 function Hero() {
+
+  const { colorScheme } = useContext(ThemeContext)
+
   return (
     <section
       style={{
         background:
-          "linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #ffffff 100%)",
+          colorScheme === "dark"
+            ? "linear-gradient(135deg, #1a1b1e 0%, #25262b 50%, #2c2e33 100%)"
+            : "linear-gradient(135deg, #fff7ed 0%, #ffedd5 50%, #ffffff 100%)",
         padding: "4rem 0",
         display: "flex",
         alignItems: "center",
@@ -33,6 +40,7 @@ function Hero() {
               size="clamp(2rem, 3.8vw, 4rem)"
               fw={600}
               lh={1}
+              c="var(--mantine-color-text)"
             >
               La mejor comida de tu ciudad,{" "}
               <span style={{ color: "#f97316" }}>

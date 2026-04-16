@@ -82,7 +82,7 @@ function ProductCard({ product, refreshProducts }) {
       <Title
         order={4}
         mt="lg"
-        c="dark"
+        c="var(--mantine-color-text)"
         size="xl"
       >
         {product.name}

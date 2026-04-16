@@ -36,7 +36,7 @@ function RestaurantCard({ restaurant }) {
       <Title
         order={4}
         mt="lg"
-        c="dark"
+        c="var(--mantine-color-text)"
         size="xl"
       >
         {restaurant.name}
@@ -61,7 +61,7 @@ function RestaurantCard({ restaurant }) {
           color="#f97316"
         />
 
-        <Text fw={500} size="lg" c="dark">
+        <Text fw={500} size="lg" c="var(--mantine-color-text)">
           {restaurant.rating || "4.8"}
         </Text>
 

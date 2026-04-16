@@ -6,14 +6,23 @@ import {
   Card
 } from "@mantine/core";
 import { IconSearch, IconShoppingCart, IconTruckDelivery } from "@tabler/icons-react";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/theme.context";
 
 
 function HowItWorks() {
+
+  const { colorScheme } = useContext(ThemeContext);
+
+
   return (
     <section
       style={{
         padding: "3rem 0",
-        backgroundColor: "white"
+        backgroundColor:
+          colorScheme === "dark"
+            ? "#1a1b1e"
+            : "white"
       }}
     >
       <Container size="xl">
@@ -22,13 +31,14 @@ function HowItWorks() {
           ta="center"
           mb="sm"
           fw={800}
+          c="var(--mantine-color-text)"
         >
           ¿Cómo funciona UrbanEats?
         </Title>
 
         <Text
           ta="center"
-          c="dimmed"
+          c="var(--mantine-color-text)"
           mb="2rem"
         >
           Pedir tu comida favorita nunca fue tan fácil.
