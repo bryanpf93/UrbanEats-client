@@ -29,6 +29,39 @@ function CreateRestaurant() {
   const [rating, setRating] = useState(0)
 
 
+  const handleGetCoordinates = () => {
+
+    if (!address) return;
+
+    axios
+      .get(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${address}.json`,
+        {
+          params: {
+            access_token: import.meta.env.VITE_MAPBOX_TOKEN,
+            limit: 1
+          }
+        }
+      )
+      .then((response) => {
+
+        if (!response.data.features.length) {
+          alert("Dirección no encontrada");
+          return;
+        }
+
+        const coordinates = response.data.features[0].center;
+
+        setLatitude(coordinates[0]);
+        setLongitude(coordinates[1])
+
+      })
+      .catch((err) => {
+        console.log("Error getting coordinates", err);
+      });
+
+  }
+
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -94,7 +127,7 @@ function CreateRestaurant() {
                 fontSize: "1.2rem"
               }
             }}
-            
+
           />
 
           <Select
@@ -110,8 +143,8 @@ function CreateRestaurant() {
               "Hamburguesas",
               "Peruana"
             ]}
-            mb="md" 
-             styles={{
+            mb="md"
+            styles={{
               label: {
                 color: "white",
                 fontSize: "1.2rem"
@@ -124,7 +157,7 @@ function CreateRestaurant() {
             value={image}
             onChange={(e) => setImage(e.target.value)}
             mb="md"
-             styles={{
+            styles={{
               label: {
                 color: "white",
                 fontSize: "1.2rem"
@@ -137,7 +170,7 @@ function CreateRestaurant() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             mb="md"
-             styles={{
+            styles={{
               label: {
                 color: "white",
                 fontSize: "1.2rem"
@@ -150,7 +183,7 @@ function CreateRestaurant() {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             mb="md"
-             styles={{
+            styles={{
               label: {
                 color: "white",
                 fontSize: "1.2rem"
@@ -158,12 +191,20 @@ function CreateRestaurant() {
             }}
           />
 
+          <Button
+            mb="sm"
+            color="dark"
+            onClick={handleGetCoordinates}
+          >
+            Obtener coordenadas automáticamente
+          </Button>
+
           <TextInput
             label="Latitud"
             value={latitude}
             onChange={(e) => setLatitude(e.target.value)}
             mb="md"
-             styles={{
+            styles={{
               label: {
                 color: "white",
                 fontSize: "1.2rem"
@@ -176,7 +217,7 @@ function CreateRestaurant() {
             value={longitude}
             onChange={(e) => setLongitude(e.target.value)}
             mb="md"
-             styles={{
+            styles={{
               label: {
                 color: "white",
                 fontSize: "1.2rem"
@@ -189,7 +230,7 @@ function CreateRestaurant() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             mb="md"
-             styles={{
+            styles={{
               label: {
                 color: "white",
                 fontSize: "1.2rem"
@@ -202,7 +243,7 @@ function CreateRestaurant() {
             value={rating}
             onChange={(e) => setRating(e.target.value)}
             mb="lg"
-             styles={{
+            styles={{
               label: {
                 color: "white",
                 fontSize: "1.2rem"

@@ -14,7 +14,7 @@ import { useContext, useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import ProductCard from "../../../components/restaurants/productcard/ProductCard"
 import { AuthContext } from "../../../context/auth.context"
-// import RestaurantMap from "../../../components/map/RestaurantMap"
+import RestaurantMap from "../../../components/map/RestaurantMap";
 
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -152,9 +152,6 @@ function RestaurantDetails() {
                 <Button color="orange" component={Link} to={`/admin/restaurants/${restaurantId}/edit`} > Editar</Button>
                 <Button onClick={handleDelete} color="red">Borrar</Button>
               </Group>
-              {/* <Group mt="sm" justify="center">
-                <Button component={Link} to={`/admin/restaurants/${restaurantId}/products/new`}>Crear producto</Button>
-              </Group> */}
             </>
           )}
         </Card>
@@ -162,21 +159,22 @@ function RestaurantDetails() {
       </Container>
 
 
-      {/* <h3>Products: </h3>
-      <div className="products-container">
-        {products.map((product) => {
-          return (
-            <ProductCard
-              key={product._id}
-              product={product}
-              refreshProducts={getProductsFromRestaurant}
-            />
-          )
-        })}
-      </div> */}
-      {/* <div className="map-container">
+      <Container size="xl" mb="lg">
+
+        <Title order={2} mb="lg">
+          Ubicación
+        </Title>
+
+        <Card
+          shadow="sm"
+          radius="xl"
+          withBorder
+          padding="md"
+        >
           <RestaurantMap restaurant={restaurant} />
-        </div> */}
+        </Card>
+
+      </Container>
 
       <Container size="xl" style={{
         display: "flex",
