@@ -32,7 +32,16 @@ function RestaurantList() {
         `${API_URL}/api/restaurants`,
         { headers: { Authorization: `Bearer ${storedToken}` } })
       .then((response) => {
-        setRestaurants(response.data)
+
+        const fixedRestaurants = response.data.slice(0, 18);
+
+        const newRestaurants = response.data.slice(18).reverse();
+
+        setRestaurants([
+          ...newRestaurants,
+          ...fixedRestaurants
+        ]);
+
       })
       .catch((err) => {
         console.log("Error getting projects from DB", err)
@@ -123,13 +132,7 @@ function RestaurantList() {
         {filteredRestaurants.map((restaurant) => (
           <Grid.Col
             key={restaurant._id}
-            span={
-              filteredRestaurants.length === 1
-                ? 4
-                : filteredRestaurants.length === 2
-                  ? 6
-                  : 4
-            }
+            span={4}
           >
             <RestaurantCard restaurant={restaurant} />
           </Grid.Col>
