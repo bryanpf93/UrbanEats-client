@@ -8,18 +8,21 @@ import { CartProviderWrapper } from './context/cart.context.jsx'
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
 import { MantineProvider } from '@mantine/core'
+import { ModalsProvider } from '@mantine/modals'
 
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <MantineProvider>
-      <BrowserRouter>
-        <AuthProviderWrapper>
-          <CartProviderWrapper>
-            <App />
-          </CartProviderWrapper>
-        </AuthProviderWrapper>
-      </BrowserRouter>
+      <ModalsProvider>
+        <BrowserRouter>
+          <AuthProviderWrapper>
+            <CartProviderWrapper>
+              <App />
+            </CartProviderWrapper>
+          </AuthProviderWrapper>
+        </BrowserRouter>
+      </ModalsProvider>
     </MantineProvider>
   </StrictMode>,
 )

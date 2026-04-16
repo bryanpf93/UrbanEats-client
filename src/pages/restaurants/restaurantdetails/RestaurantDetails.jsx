@@ -15,6 +15,7 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import ProductCard from "../../../components/restaurants/productcard/ProductCard"
 import { AuthContext } from "../../../context/auth.context"
 import RestaurantMap from "../../../components/map/RestaurantMap";
+import ConfirmModal from "../../../components/modals/ConfirmModal";
 
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -79,6 +80,19 @@ function RestaurantDetails() {
 
 
   }
+
+  const confirmDeleteRestaurant = () => {
+    ConfirmModal({
+      title: "Eliminar restaurante",
+
+      message:
+        "¿Seguro que quieres eliminar este restaurante?",
+
+      confirmText: "Eliminar",
+
+      onConfirm: handleDelete,
+    });
+  };
 
 
   useEffect(() => {
@@ -150,14 +164,13 @@ function RestaurantDetails() {
             <>
               <Group mt="xl" justify="center">
                 <Button color="orange" component={Link} to={`/admin/restaurants/${restaurantId}/edit`} > Editar</Button>
-                <Button onClick={handleDelete} color="red">Borrar</Button>
+                <Button color="red" onClick={confirmDeleteRestaurant}>Borrar</Button>
               </Group>
             </>
           )}
         </Card>
 
       </Container>
-
 
       <Container size="xl" mb="lg">
 

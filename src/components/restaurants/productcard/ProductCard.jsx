@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { IconShoppingCart } from "@tabler/icons-react"
 import { Button, Card, Group, Image, Text, Title } from "@mantine/core"
+import ConfirmModal from "../../modals/ConfirmModal"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -44,10 +45,22 @@ function ProductCard({ product, refreshProducts }) {
       })
   }
 
+  const confirmDeleteProduct = () => {
+    ConfirmModal({
+      title: "Eliminar producto",
+
+      message: `¿Seguro que quieres eliminar ${product.name}?`,
+
+      confirmText: "Eliminar",
+
+      onConfirm: handleDelete,
+    });
+  };
+
   return (
 
     <Card
-  
+
       shadow="md"
       padding="lg"
       radius="xl"
@@ -107,17 +120,17 @@ function ProductCard({ product, refreshProducts }) {
 
       {isAdmin && (
         <Group style={{
-          display:"flex",
+          display: "flex",
           justifyContent: "center"
         }}>
           <Button color="orange" component={Link} to={`/admin/restaurants/${product.restaurant}/products/${product._id}/edit`}>Editar</Button>
-          <Button color="red" onClick={handleDelete}>Borrar</Button>
+          <Button color="red" onClick={confirmDeleteProduct}>Borrar</Button>
         </Group>
       )}
 
     </Card>
 
-    
+
 
 
 

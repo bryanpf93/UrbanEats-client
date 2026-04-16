@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom"
 import "./OrderDetails.css"
+import restaurantFallBack from "../../../assets/images/restaurant.png"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import {
@@ -12,6 +13,7 @@ import {
   Group,
   Divider
 } from "@mantine/core"
+import ConfirmModal from "../../../components/modals/ConfirmModal"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -55,8 +57,19 @@ function OrderDetails(){
       .catch((err) => {
         console.log("Error deleting order", err)
       })
-
   }
+
+  const confirmDeleteOrder = () => {
+  ConfirmModal({
+    title: "Eliminar pedido",
+
+    message: "¿Seguro que quieres eliminar este pedido?",
+
+    confirmText: "Eliminar",
+
+    onConfirm: handleDelete,
+  });
+};
 
   if (order === null) {
     return <p>Cargando Pedido ...</p>
@@ -77,14 +90,15 @@ function OrderDetails(){
     >
 
       <Image
-        src={order.restaurant.image}
+        src={order.restaurant?.image}
+        fallbackSrc={restaurantFallBack}
         h={300}
         radius="xl"
         mb="lg"
       />
 
       <Title order={2}>
-        {order.restaurant.name}
+        {order.restaurant?.name || "Restaurante elminado"}
       </Title>
 
       <Text c="dimmed">
@@ -116,7 +130,7 @@ function OrderDetails(){
           mb="sm"
         >
           <Text>
-            {item.product.name}
+            {item.product?.name || "Producto eliminado"}
           </Text>
 
           <Text>
@@ -134,7 +148,7 @@ function OrderDetails(){
       <Button
         mt="xl"
         color="red"
-        onClick={handleDelete}
+        onClick={confirmDeleteOrder}
       >
         Borrar pedido
       </Button>

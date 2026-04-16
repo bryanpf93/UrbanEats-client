@@ -10,8 +10,10 @@ import {
   Text,
   Card,
   Button,
-  Group
+  Group,
+  Grid
 } from "@mantine/core";
+import ConfirmModal from "../../components/modals/ConfirmModal"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -54,86 +56,107 @@ function Cart() {
       })
   }
 
+  const confirmClearCart = () => {
+    ConfirmModal({
+      title: "Vaciar carrito",
+
+      message: "¿Seguro que quieres eliminar todos los productos del carrito?",
+
+      confirmText: "Vaciar",
+
+      onConfirm: clearCart,
+    });
+  };
+
   console.log(cart)
 
   return (
-  <Container size="xl" py="xl">
+    <Container size="xl" py="xl">
 
-    <Title mb="xl">
-      🛒 Mi carrito
-    </Title>
+      <Title mb="xl">
+        🛒 Mi carrito
+      </Title>
 
-    {cart.length === 0 ? (
+      {cart.length === 0 ? (
 
-      <Text size="lg">
-        Tu carrito está vacío
-      </Text>
+        <Text size="lg">
+          Tu carrito está vacío
+        </Text>
 
-    ) : (
+      ) : (
 
-      <>
-        <div className="carts-container">
-          {cart.map((item) => (
-            <CartItem
-              key={item.productId}
-              item={item}
-            />
-          ))}
-        </div>
+        <>
+          <Grid gutter="xl">
 
-        <Card
-          shadow="sm"
-          padding="xl"
-          radius="xl"
-          withBorder
-          mt="xl"
-        >
+            {cart.map((item) => (
+              <Grid.Col
+                key={item.productId}
+                span={{
+                  base: 12,
+                  sm: 6,
+                  md: 6,
+                  lg: 6
+                }}
+              >
+                <CartItem item={item} />
+              </Grid.Col>
+            ))}
 
-          <Title order={3} mb="md">
-            Resumen del pedido
-          </Title>
+          </Grid>
 
-          <Text size="lg" fw={600}>
-            Total: {total}€
-          </Text>
+          <Card
+            shadow="sm"
+            padding="xl"
+            radius="xl"
+            withBorder
+            mt="xl"
+          >
 
-          <Group mt="lg" style={{
-            display:"flex",
-            justifyContent: "center"
-          }}>
+            <Title order={3} mb="md">
+              Resumen del pedido
+            </Title>
 
-            <Button
-              color="red"
-              onClick={clearCart}
-            >
-              Vaciar carrito
-            </Button>
+            <Text size="lg" fw={600}>
+              Total: {total}€
+            </Text>
 
-            <Button
-              variant="light"
-              color="gray"
-              onClick={() =>
-                navigate(`/restaurants/${cart[0]?.restaurantId}`)
-              }
-            >
-              Seguir comprando
-            </Button>
+            <Group mt="lg" style={{
+              display: "flex",
+              justifyContent: "center"
+            }}>
 
-            <Button
-              color="dark"
-              onClick={handleCheckout}
-            >
-              Realizar pedido
-            </Button>
+              <Button
+                color="red"
+                onClick={confirmClearCart}
+              >
+                Vaciar carrito
+              </Button>
 
-          </Group>
+              <Button
+                variant="light"
+                color="gray"
+                onClick={() =>
+                  navigate(`/restaurants/${cart[0]?.restaurantId}`)
+                }
+              >
+                Seguir comprando
+              </Button>
 
-        </Card>
-      </>
-    )}
+              <Button
+                color="dark"
+                onClick={handleCheckout}
+              >
+                Realizar pedido
+              </Button>
 
-  </Container>
-)
+            </Group>
+
+          </Card>
+        </>
+      )}
+
+    </Container>
+  )
 
 }
 

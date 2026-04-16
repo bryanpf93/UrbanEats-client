@@ -7,10 +7,13 @@ import {
   Image,
   Text,
   Button,
-  ActionIcon
+  ActionIcon,
+  Stack,
+  Flex
 } from "@mantine/core";
 
 import { IconMinus, IconPlus, IconTrash } from "@tabler/icons-react";
+import ConfirmModal from "../modals/ConfirmModal";
 
 function CartItem({ item }) {
 
@@ -38,6 +41,18 @@ function CartItem({ item }) {
     )
   }
 
+  const confirmRemoveItem = () => {
+    ConfirmModal({
+      title: "Eliminar producto",
+
+      message: `¿Seguro que quieres eliminar ${item.name} del carrito?`,
+
+      confirmText: "Eliminar",
+
+      onConfirm: () => removeFromCart(item.productId),
+    });
+  };
+
   return (
     <Card
       shadow="sm"
@@ -46,9 +61,9 @@ function CartItem({ item }) {
       withBorder
       mb="md"
     >
-      <Group justify="space-between" align="center">
+      <Group justify="space-between" align="center" wrap="nowrap">
 
-        <Group>
+        <Group wrap="nowrap" style={{ flex: 1 }}>
 
           <Image
             src={item.image}
@@ -57,12 +72,8 @@ function CartItem({ item }) {
             radius="md"
           />
 
-          <div style={{ width: "235px" }}>
-            <Text
-              fw={600}
-              size="lg"
-              lineClamp={2}
-            >
+          <div style={{ flex: 1 }}>
+            <Text fw={600} size="lg" lineClamp={2}>
               {item.name}
             </Text>
 
@@ -73,36 +84,43 @@ function CartItem({ item }) {
 
         </Group>
 
-        <Group>
 
-          <ActionIcon
-            variant="light"
-            onClick={handleDecrease}
-          >
-            <IconMinus size={16} />
-          </ActionIcon>
-
-          <Text fw={500}>
-            {item.quantity}
-          </Text>
-
-          <ActionIcon
-            variant="light"
-            onClick={handleIncrease}
-          >
-            <IconPlus size={16} />
-          </ActionIcon>
-
-        </Group>
-
-        <Button
-          color="red"
-          variant="light"
-          onClick={() => removeFromCart(item.productId)}
-          leftSection={<IconTrash size={16} />}
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          gap="xs"
+          align="center"
         >
-          Eliminar
-        </Button>
+
+          <Group gap="xs">
+            <ActionIcon
+              variant="light"
+              onClick={handleDecrease}
+            >
+              <IconMinus size={16} />
+            </ActionIcon>
+
+            <Text fw={500}>
+              {item.quantity}
+            </Text>
+
+            <ActionIcon
+              variant="light"
+              onClick={handleIncrease}
+            >
+              <IconPlus size={16} />
+            </ActionIcon>
+          </Group>
+
+          <Button
+            color="red"
+            variant="light"
+            onClick={confirmRemoveItem}
+            leftSection={<IconTrash size={16} />}
+          >
+            Eliminar
+          </Button>
+
+        </Flex>
 
       </Group>
     </Card>

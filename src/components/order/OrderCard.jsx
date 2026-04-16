@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import restaurantFallBack from "../../assets/images/restaurant.png"
 import "./OrderCard.css"
 import {
   Card,
@@ -24,7 +25,8 @@ function OrderCard({ order }) {
         <Group>
 
           <Image
-            src={order.restaurant.image}
+            src={order.restaurant?.image}
+            fallbackSrc={restaurantFallBack}
             w={150}
             h={150}
             radius="md"
@@ -34,7 +36,7 @@ function OrderCard({ order }) {
 
         <div>
             <Title order={4}>
-              {order.restaurant.name}
+              {order.restaurant?.name || "Restaurant elminado"}
             </Title>
 
             <Text c="dimmed">
