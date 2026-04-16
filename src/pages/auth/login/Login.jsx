@@ -12,6 +12,7 @@ import {
   Text,
   Stack
 } from "@mantine/core";
+import { ThemeContext } from "../../../context/theme.context";
 
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -24,9 +25,7 @@ function Login() {
   const navigate = useNavigate()
 
   const { storeToken, authenticateUser } = useContext(AuthContext)
-
-  const handleEmail = (e) => setEmail(e.target.value)
-  const handlePassword = (e) => setPassword(e.target.value)
+  const { colorScheme } = useContext(ThemeContext);
 
 
   const handleLoginSubmit = (e) => {
@@ -54,10 +53,14 @@ function Login() {
         Iniciar sesión
       </Title>
 
-      <Paper shadow="md" p="xl" radius="md" withBorder>
+      <Paper shadow="md" p="xl" radius="md" withBorder bg={
+          colorScheme === "dark"
+            ? "dark.6"
+            : "#fff7ed"
+        }>
 
         <form onSubmit={handleLoginSubmit}>
-          <Stack>
+          <Stack >
 
             <TextInput
               label="Email"
@@ -75,7 +78,7 @@ function Login() {
               required
             />
 
-            <Button type="submit" fullWidth mt="md">
+            <Button type="submit" fullWidth mt="md" color="orange">
               Login
             </Button>
 

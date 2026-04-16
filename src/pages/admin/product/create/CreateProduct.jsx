@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom"
 import "./CreateProduct.css"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import axios from "axios"
 import {
   Container,
@@ -12,9 +12,12 @@ import {
   Button,
   Group
 } from "@mantine/core";
+import { ThemeContext } from "../../../../context/theme.context";
 
 function CreateProduct() {
 
+
+  const { colorScheme } = useContext(ThemeContext);
   const API_URL = import.meta.env.VITE_API_URL
 
   const { restaurantId } = useParams()
@@ -66,7 +69,11 @@ function CreateProduct() {
       padding="xl"
       radius="xl"
       withBorder
-      bg="orange"
+      bg={
+          colorScheme === "dark"
+            ? "dark.6"
+            : "#fff7ed"
+        }
     >
       <form onSubmit={handleSubmit}>
 
@@ -75,12 +82,6 @@ function CreateProduct() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           mb="md"
-          styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
         />
 
         <TextInput
@@ -88,12 +89,6 @@ function CreateProduct() {
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           mb="md"
-          styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
         />
 
         <Textarea
@@ -101,12 +96,6 @@ function CreateProduct() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           mb="md"
-          styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
         />
 
         <TextInput
@@ -114,12 +103,6 @@ function CreateProduct() {
           value={image}
           onChange={(e) => setImage(e.target.value)}
           mb="md"
-          styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
         />
 
         <Select
@@ -136,12 +119,6 @@ function CreateProduct() {
             "Bebidas"
           ]}
           mb="lg"
-          styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
         />
 
         <Group justify="space-between">

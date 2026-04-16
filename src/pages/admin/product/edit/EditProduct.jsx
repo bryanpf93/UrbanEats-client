@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom"
 import "./EditProduct.css"
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import {
   Container,
   Card,
@@ -13,8 +13,11 @@ import {
   Group,
   NumberInput
 } from "@mantine/core";
+import { ThemeContext } from "../../../../context/theme.context";
 
 function EditProduct() {
+
+  const { colorScheme } = useContext(ThemeContext);
 
   const API_URL = import.meta.env.VITE_API_URL
   const { restaurantId, productId } = useParams()
@@ -89,7 +92,11 @@ function EditProduct() {
       padding="xl"
       radius="xl"
       withBorder
-      bg="orange"
+      bg={
+          colorScheme === "dark"
+            ? "dark.6"
+            : "#fff7ed"
+        }
     >
       <form onSubmit={handleSubmit}>
 
@@ -98,12 +105,6 @@ function EditProduct() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           mb="md"
-          styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
         />
 
         <NumberInput
@@ -113,12 +114,6 @@ function EditProduct() {
           min={1}
           max={999}
           mb="md"
-          styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
         />
 
         <Textarea
@@ -126,12 +121,6 @@ function EditProduct() {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           mb="md"
-          styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
         />
 
         <TextInput
@@ -139,12 +128,6 @@ function EditProduct() {
           value={image}
           onChange={(e) => setImage(e.target.value)}
           mb="md"
-          styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
         />
 
         <Select
@@ -161,12 +144,6 @@ function EditProduct() {
             "Bebidas"
           ]}
           mb="lg"
-          styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
         />
 
         <Group justify="space-between">

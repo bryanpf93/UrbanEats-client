@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Container,
@@ -11,10 +11,13 @@ import {
   Text,
   Stack
 } from "@mantine/core";
+import { ThemeContext } from "../../../context/theme.context";
 
 const API_URL = import.meta.env.VITE_API_URL
 
 function Signup() {
+
+  const { colorScheme } = useContext(ThemeContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,9 +26,6 @@ function Signup() {
 
   const navigate = useNavigate();
 
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
-  const handleName = (e) => setName(e.target.value);
 
 
   const handleSignupSubmit = (e) => {
@@ -51,7 +51,11 @@ function Signup() {
         Crear Cuenta
       </Title>
 
-      <Paper shadow="md" p="xl" radius="md" withBorder>
+      <Paper shadow="md" p="xl" radius="md" withBorder bg={
+          colorScheme === "dark"
+            ? "dark.6"
+            : "#fff7ed"
+        }>
 
         <form onSubmit={handleSignupSubmit}>
           <Stack>
@@ -80,7 +84,7 @@ function Signup() {
               required
             />
 
-            <Button type="submit" fullWidth mt="md">
+            <Button type="submit" fullWidth mt="md" color="orange">
               Registrarse
             </Button>
 

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import "./CreateRestaurant.css"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
@@ -12,8 +12,11 @@ import {
   Button,
   Group
 } from "@mantine/core";
+import { ThemeContext } from "../../../../context/theme.context";
 
 function CreateRestaurant() {
+
+  const { colorScheme } = useContext(ThemeContext);
 
   const API_URL = import.meta.env.VITE_API_URL
   const navigate = useNavigate()
@@ -112,7 +115,12 @@ function CreateRestaurant() {
         padding="xl"
         radius="xl"
         withBorder
-        bg="orange"
+        bg={
+          colorScheme === "dark"
+            ? "dark.6"
+            : "#fff7ed"
+        }
+        
       >
         <form onSubmit={handleSubmit}>
 
@@ -121,12 +129,7 @@ function CreateRestaurant() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             mb="md"
-            styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
+
 
           />
 
@@ -144,12 +147,7 @@ function CreateRestaurant() {
               "Peruana"
             ]}
             mb="md"
-            styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
+
           />
 
           <TextInput
@@ -157,12 +155,6 @@ function CreateRestaurant() {
             value={image}
             onChange={(e) => setImage(e.target.value)}
             mb="md"
-            styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
           />
 
           <Textarea
@@ -170,12 +162,6 @@ function CreateRestaurant() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             mb="md"
-            styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
           />
 
           <TextInput
@@ -183,13 +169,7 @@ function CreateRestaurant() {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             mb="md"
-            styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
-          />
+         />
 
           <Button
             mb="sm"
@@ -204,12 +184,6 @@ function CreateRestaurant() {
             value={latitude}
             onChange={(e) => setLatitude(e.target.value)}
             mb="md"
-            styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
           />
 
           <TextInput
@@ -217,12 +191,6 @@ function CreateRestaurant() {
             value={longitude}
             onChange={(e) => setLongitude(e.target.value)}
             mb="md"
-            styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
           />
 
           <TextInput
@@ -230,12 +198,6 @@ function CreateRestaurant() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             mb="md"
-            styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
           />
 
           <TextInput
@@ -243,12 +205,7 @@ function CreateRestaurant() {
             value={rating}
             onChange={(e) => setRating(e.target.value)}
             mb="lg"
-            styles={{
-              label: {
-                color: "white",
-                fontSize: "1.2rem"
-              }
-            }}
+
           />
 
           <Group justify="space-between">
