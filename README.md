@@ -6,11 +6,7 @@
 
 ### 📸 Preview
 
-- Home
-- Lista de restaurantes
-- Detalle de restaurante
-- Carrito
-- Pedidos
+![Demo](src/assets/Images/urbaneats.gif)
 
 ---
 
