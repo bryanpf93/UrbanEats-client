@@ -6,7 +6,7 @@
 
 ### 📸 Preview
 
-![Demo](src/assets/Images/urbaneats.gif)
+![Demo](src/assets/images/urbaneats.gif)
 
 ---
 
