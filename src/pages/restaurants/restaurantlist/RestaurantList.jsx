@@ -56,7 +56,7 @@ function RestaurantList() {
       .finally(() => {
         setTimeout(() => {
           setLoading(false)
-        }, 200)
+        }, 100)
       })
   }
 

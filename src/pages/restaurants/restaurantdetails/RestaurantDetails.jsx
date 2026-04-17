@@ -98,7 +98,7 @@ function RestaurantDetails() {
       .finally(() => {
         setTimeout(() => {
           setLoading(false);
-        }, 200);
+        }, 100);
       });
 
   }, [restaurantId]);

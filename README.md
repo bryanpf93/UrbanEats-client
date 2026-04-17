@@ -1,16 +1,107 @@
-# React + Vite
+# 🍔 UrbanEats Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ 🚀 Aplicación web para explorar restaurantes, añadir productos al carrito y gestionar pedidos de forma rápida e intuitiva.
 
-Currently, two official plugins are available:
+ ## 📸 Preview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Home
+- Lista de restaurantes
+- Detalle de restaurante
+- Carrito
+- Pedidos
 
-## React Compiler
+ ## 🛠️ Tecnologías
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Mantine](https://img.shields.io/badge/Mantine-339AF0?style=for-the-badge&logo=mantine&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🌐 Demo
+
+Frontend: https://urban-eats-client.vercel.app
+
+
+
+## ⚙️ Instalación
+
+
+```bash
+git clone https://github.com/bryanpf93/UrbanEats-client.git
+cd UrbanEats-client
+npm install
+```
+
+Crear archivo `.env`:
+
+```env
+VITE_API_URL=https://urban-eats-server-smoky.vercel.app
+```
+
+Ejecutar la app:
+
+```bash
+npm run dev
+```
+
+## 🧭 Rutas principales
+
+| Ruta | Descripción |
+|------|------------|
+| `/` | Página principal |
+| `/restaurants` | Listado de restaurantes |
+| `/restaurants/:id` | Detalle de un restaurante |
+| `/cart` | Carrito de compra |
+| `/orders` | Historial de pedidos |
+| `/login` | Inicio de sesión |
+| `/signup` | Registro de usuario |
+
+🔒 Rutas protegidas:
+- `/cart`
+- `/orders`
+
+## ✨ Features
+
+- 🔐 Autenticación de usuarios
+- 🔍 Búsqueda de restaurantes
+- 🛒 Carrito de compra
+- 📦 Gestión de pedidos
+- 🌙 Modo oscuro / claro (Theme Toggle)
+- ⚡ Skeleton loaders para mejorar la experiencia de usuario
+- 📱 Diseño responsive
+
+## 📁 Estructura del proyecto
+
+```
+src/
+|── assets/
+│── components/
+│── pages/
+│── context/
+│── services/
+│── App.jsx
+│── main.jsx
+```
+## 📚 Aprendizajes
+
+- Manejo de estado global con Context API
+- Integración con APIs REST
+- Mejora de UX con skeleton loaders
+- Diseño responsive con Mantine
+- Gestión de autenticación con tokens
+
+---
+
+## 🚀 Mejoras futuras
+
+- ⭐ Sistema de valoraciones
+- ❤️ Favoritos
+- 🌍 Multi-idioma
+
+---
+
+## 👤 Autor
+
+- Bryan Santiago Paucarima Franco - Ironhack
+- https://www.linkedin.com/in/bryanpf93/

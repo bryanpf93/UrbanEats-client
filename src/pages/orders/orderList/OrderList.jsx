@@ -35,7 +35,7 @@ function OrderList() {
       .finally(() => {
         setTimeout(() => {
           setLoading(false)
-        }, 500)
+        }, 100)
       })
 
   }
@@ -57,7 +57,7 @@ function OrderList() {
 
       {loading ? (
 
-        Array.from({ length: 4 }).map((_, index) => (
+        Array.from({ length: 2 }).map((_, index) => (
           <OrderCardSkeleton key={index} />
         ))
 
