@@ -1,8 +1,10 @@
 # 🍔 UrbanEats Frontend
 
  🚀 Aplicación web para explorar restaurantes, añadir productos al carrito y gestionar pedidos de forma rápida e intuitiva.
+ 
+ ---
 
- ## 📸 Preview
+### 📸 Preview
 
 - Home
 - Lista de restaurantes
@@ -10,21 +12,23 @@
 - Carrito
 - Pedidos
 
- ## 🛠️ Tecnologías
+---
+
+### 🛠️ Tecnologías
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 ![Mantine](https://img.shields.io/badge/Mantine-339AF0?style=for-the-badge&logo=mantine&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Axios](https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
 
-
-## 🌐 Demo
+---
+### 🌐 Demo
 
 Frontend: https://urban-eats-client.vercel.app
 
+----
 
-
-## ⚙️ Instalación
+### ⚙️ Instalación
 
 
 ```bash
@@ -45,7 +49,9 @@ Ejecutar la app:
 npm run dev
 ```
 
-## 🧭 Rutas principales
+---
+
+### 🧭 Rutas principales
 
 | Ruta | Descripción |
 |------|------------|
@@ -61,7 +67,9 @@ npm run dev
 - `/cart`
 - `/orders`
 
-## ✨ Features
+----
+
+### ✨ Features
 
 - 🔐 Autenticación de usuarios
 - 🔍 Búsqueda de restaurantes
@@ -71,7 +79,9 @@ npm run dev
 - ⚡ Skeleton loaders para mejorar la experiencia de usuario
 - 📱 Diseño responsive
 
-## 📁 Estructura del proyecto
+---
+
+### 📁 Estructura del proyecto
 
 ```
 src/
@@ -83,7 +93,9 @@ src/
 │── App.jsx
 │── main.jsx
 ```
-## 📚 Aprendizajes
+
+---
+### 📚 Aprendizajes
 
 - Manejo de estado global con Context API
 - Integración con APIs REST
@@ -93,7 +105,7 @@ src/
 
 ---
 
-## 🚀 Mejoras futuras
+### 🚀 Mejoras futuras
 
 - ⭐ Sistema de valoraciones
 - ❤️ Favoritos
@@ -101,7 +113,7 @@ src/
 
 ---
 
-## 👤 Autor
+### 👤 Autor
 
 - Bryan Santiago Paucarima Franco - Ironhack
 - https://www.linkedin.com/in/bryanpf93/
